@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda Virtual</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <link rel="stylesheet" href="assets/admin.css">
+
+  <!-- React y Babel se cargan desde un CDN: no hay que instalar nada -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <!-- Babel convierte el JSX (el HTML dentro del JS) a JavaScript normal, directo en el navegador.
+       Por eso los componentes se cargan con type="text/babel". -->
+  <script src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Si se abre con doble clic (file://), el navegador no deja que Babel lea los otros archivos -->
+  <div id="aviso-file" hidden style="max-width:640px;margin:3rem auto;padding:1.5rem;border:1px solid #ff5f7e;border-radius:12px;background:#1c1e2b;color:#f2f2f7;font-family:sans-serif">
+    <h2>Abre la tienda de una de estas formas</h2>
+    <p>1) Doble clic en <strong>index-sin-servidor.html</strong> (versión ya compilada, funciona sin servidor).</p>
+    <p>2) O abre esta carpeta en VS Code y usa <strong>Live Server</strong> sobre <strong>index.html</strong> (así puedes editar los componentes y ver los cambios).</p>
+  </div>
+  <script>if (location.protocol === "file:") document.getElementById("aviso-file").hidden = false;</script>
+
+  <!-- Datos y funciones (JavaScript normal) -->
+  <script src="js/datos.js"></script>
+  <script src="js/db.js"></script>
+
+  <!-- Componentes (llevan JSX, por eso type="text/babel"). App.js va al final porque usa a todos los demás -->
+  <script type="text/babel" src="js/components/Comunes.js"></script>
+  <script type="text/babel" src="js/components/Home.js"></script>
+  <script type="text/babel" src="js/components/Productos.js"></script>
+  <script type="text/babel" src="js/components/DetalleProducto.js"></script>
+  <script type="text/babel" src="js/components/Carrito.js"></script>
+  <script type="text/babel" src="js/components/Blogs.js"></script>
+  <script type="text/babel" src="js/components/Paginas.js"></script>
+  <script type="text/babel" src="js/components/Cuenta.js"></script>
+  <script type="text/babel" src="js/components/Admin.js"></script>
+  <script type="text/babel" src="js/components/AdminSecciones.js"></script>
+  <script type="text/babel" src="js/App.js"></script>
+</body>
+</html>
