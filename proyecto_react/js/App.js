@@ -1,58 +1,87 @@
-// ============================================================
-// App.js — el componente principal (la "raíz" de la aplicación).
-// 1) Guarda el estado que comparten todas las páginas: carrito, usuario y resultado de la última compra.
-// 2) Hace de "router": mira la URL (la parte después del #) y decide qué página mostrar.
-//    No usamos librerías de rutas porque eso necesitaría instalar paquetes con npm.
-//    Ejemplo: "#/productos/5" -> partes = ["productos", "5"] -> <DetalleProducto id="5" />
-// ============================================================
-
-function AccesoDenegado() {
-  return (
-    <div className="contenedor">
-      <div className="resultado fallo">
-        <h2>Zona solo para administradores</h2>
-        <p>Inicia sesión con una cuenta de administrador para entrar al panel.</p>
-        <a href="#/login" className="btn-comprar">Iniciar sesión</a>
-      </div>
-    </div>
-  );
-}
 
 function App() {
   const [ruta, setRuta] = React.useState(window.location.hash || "#/");
   const [carrito, setCarrito] = React.useState(() => DB.carrito());
-  const [usuario, setUsuario] = React.useState(() => DB.usuarioActual());
-  const [resultado, setResultado] = React.useState(null);   // resultado del último pago (éxito o error)
+  const [usuario, setUsuario] = React.useState(null);
+  const [resultado, setResultado] = React.useState(null);   
+  const [carga, setCarga] = React.useState({ listo: false, error: "" });
+  const [, setVersion] = React.useState(0);                  
 
-  // Cuando el usuario toca un link href="#/algo", el navegador cambia el hash SIN recargar la página
-  // y dispara "hashchange". Lo escuchamos para volver a dibujar la página correcta.
+  function iniciar() {
+    setCarga({ listo: false, error: "" });
+    Auth.restaurar()
+      .then((u) => { setUsuario(u); return DB.cargarTienda(); })
+      .then(() => { DB.limpiarCarrito(); setCarrito(DB.carrito()); setCarga({ listo: true, error: "" }); })
+      .catch((err) => setCarga({ listo: false, error: err.message }));
+  }
+  React.useEffect(iniciar, []);
+
   React.useEffect(() => {
     function alCambiarHash() {
       setRuta(window.location.hash || "#/");
-      setCarrito(DB.carrito());          // vuelve a leer por si el administrador cambió algo
-      setUsuario(DB.usuarioActual());
+      setCarrito(DB.carrito());
       window.scrollTo(0, 0);
+      DB.cargarTienda().then(() => setVersion((v) => v + 1)).catch(() => {});   // datos al día (stock, precios)
+    }
+    // Si el refresh token venció, el backend ya no reconoce la sesión: se cierra y se pide iniciar sesión de nuevo
+    function alExpirar() {
+      setUsuario(null);
+      sessionStorage.setItem("veg_aviso", "Tu sesión expiró. Inicia sesión nuevamente.");
+      irA("#/login");
     }
     window.addEventListener("hashchange", alCambiarHash);
-    return () => window.removeEventListener("hashchange", alCambiarHash);
+    window.addEventListener("veg-sesion-expirada", alExpirar);
+    return () => {
+      window.removeEventListener("hashchange", alCambiarHash);
+      window.removeEventListener("veg-sesion-expirada", alExpirar);
+    };
   }, []);
 
   function actualizarCarrito() { setCarrito(DB.carrito()); }
-  function entrar(u) { setUsuario(u); irA(u.rol === "admin" ? "#/admin" : "#/"); }
-  function salir() { DB.cerrarSesion(); setUsuario(null); irA("#/"); }
+  function entrar(u) {
+    setUsuario(u);
+    const volver = sessionStorage.getItem("veg_volver");   // si lo mandaron a iniciar sesión, vuelve a donde iba
+    sessionStorage.removeItem("veg_volver");
+    const valido = volver && !volver.startsWith("#/compra-") && !(volver.startsWith("#/admin") && u.rol !== "admin");   // no volver a pantallas de resultado ni a rutas que su rol no puede ver
+    irA(valido ? volver : (u.rol === "admin" ? "#/admin" : "#/"));
+  }
+  function salir() { sessionStorage.removeItem("veg_volver"); Auth.salir(); setRuta("#/"); setUsuario(null); irA("#/"); }   // setRuta en el mismo render: si no, la guardia vería "sin sesión" en /admin y mandaría al login
   function terminarPago(r) {
     setResultado(r);
     setCarrito(DB.carrito());
     irA(r.exito ? "#/compra-exitosa" : "#/compra-error");
   }
 
-  // "#/productos/5" -> ["productos", "5"]
-  const partes = ruta.replace("#/", "").split("/").filter(Boolean);
-  const esAdmin = usuario !== null && usuario.rol === "admin";
+  // ---- Pantallas de espera / error de conexión ----
+  if (!carga.listo) {
+    return (
+      <div className="contenedor" style={{ textAlign: "center", marginTop: "4rem" }}>
+        {carga.error ? (
+          <div className="resultado fallo">
+            <h2>No se pudo cargar la tienda</h2>
+            <p>{carga.error}</p>
+            <button className="btn-comprar" onClick={iniciar}>Reintentar</button>
+          </div>
+        ) : <p>Conectando con el servidor…</p>}
+      </div>
+    );
+  }
 
-  // El panel de administrador tiene su propio diseño (sin la barra de la tienda)
-  if (partes[0] === "admin" && esAdmin) {
-    return <Admin seccion={partes[1] || "dashboard"} usuario={usuario} onSalir={salir} onUsuarioCambio={() => setUsuario(DB.usuarioActual())} />;
+  const partes = ruta.replace("#/", "").split("/").filter(Boolean);
+
+  function guardia(rol, pantalla) {
+    if (!usuario) {
+      sessionStorage.setItem("veg_volver", ruta);
+      sessionStorage.setItem("veg_aviso", "Inicia sesión para continuar.");
+      window.setTimeout(() => irA("#/login"), 0);
+      return <div className="contenedor"><p>Redirigiendo al inicio de sesión…</p></div>;
+    }
+    if (rol && usuario.rol !== rol) return <AccesoRestringido usuario={usuario} />;
+    return pantalla;
+  }
+
+  if (partes[0] === "admin") {
+    return guardia("admin", <Admin seccion={partes[1] || "dashboard"} usuario={usuario} onSalir={salir} onUsuarioCambio={(u) => setUsuario(u)} />);
   }
 
   function pagina() {
@@ -61,15 +90,15 @@ function App() {
       case "productos": return partes[1] ? <DetalleProducto key={partes[1]} id={partes[1]} onCambio={actualizarCarrito} /> : <Productos />;
       case "ofertas": return <Ofertas />;
       case "carrito": return <Carrito carrito={carrito} onCambio={actualizarCarrito} />;
-      case "checkout": return <Checkout carrito={carrito} usuario={usuario} onResultado={terminarPago} />;
-      case "compra-exitosa": return <ResultadoCompra resultado={resultado} exito={true} />;
-      case "compra-error": return <ResultadoCompra resultado={resultado} exito={false} />;
+      case "checkout": return guardia(null, <Checkout carrito={carrito} usuario={usuario} onResultado={terminarPago} />);
+      case "compra-exitosa": return guardia(null, <ResultadoCompra resultado={resultado} exito={true} />);
+      case "compra-error": return guardia(null, <ResultadoCompra resultado={resultado} exito={false} />);
+      case "mis-compras": return guardia(null, <MisCompras />);
       case "blogs": return partes[1] ? <DetalleBlog id={partes[1]} /> : <Blogs />;
       case "nosotros": return <Nosotros />;
       case "contacto": return <Contacto usuario={usuario} />;
       case "login": return <Login onLogin={entrar} />;
       case "registro": return <Registro onLogin={entrar} />;
-      case "admin": return <AccesoDenegado />;
       default: return <div className="contenedor"><p>Página no encontrada. <a href="#/">Volver al inicio</a></p></div>;
     }
   }
@@ -83,5 +112,4 @@ function App() {
   );
 }
 
-// Dibuja <App /> dentro del <div id="root"> del index.html
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);

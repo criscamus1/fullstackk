@@ -1,6 +1,3 @@
-// ============================================================
-// Carrito.js — el carrito, el checkout (con región y comuna) y las vistas de compra exitosa / con error.
-// ============================================================
 
 // Props: carrito (lista [{id, cantidad}] que viene desde App) y onCambio (para avisar que cambió)
 function Carrito({ carrito, onCambio }) {
@@ -21,7 +18,7 @@ function Carrito({ carrito, onCambio }) {
     onCambio();
   }
   function vaciar() {
-    DB.vaciarCarrito();   // devuelve el stock
+    DB.vaciarCarrito();
     onCambio();
   }
 
@@ -77,6 +74,7 @@ function Checkout({ carrito, usuario, onResultado }) {
     pago: "aprobada"
   });
   const [error, setError] = React.useState("");
+  const [enviando, setEnviando] = React.useState(false);
 
   function cambiar(campo, valor) {
     setForm({ ...form, [campo]: valor });   // copia el formulario y cambia solo ese campo
@@ -93,7 +91,7 @@ function Checkout({ carrito, usuario, onResultado }) {
     );
   }
 
-  function pagar(e) {
+  async function pagar(e) {
     e.preventDefault();
     if (!form.nombre.trim() || !form.apellidos.trim() || !form.calle.trim() || !form.region || !form.comuna) {
       setError("Completa todos los campos obligatorios (*).");
@@ -105,12 +103,22 @@ function Checkout({ carrito, usuario, onResultado }) {
     }
     const direccion = form.calle + ", " + form.comuna + ", " + form.region;
     const total = DB.totalCarrito();
-    if (form.pago === "rechazada") {   // simulación: la tarjeta de prueba "rechazada" muestra la vista de error
-      onResultado({ exito: false, total: total, direccion: direccion });
-      return;
+    setError("");
+    setEnviando(true);
+    try {
+      // El backend valida el stock, descuenta, calcula precios y guarda la orden en MySQL
+      const orden = await DB.crearOrden(form);
+      onResultado({ exito: true, orden: orden, total: total, direccion: direccion, correo: form.correo.trim() });
+    } catch (err) {
+      if (err.estado === 402) {   // pago rechazado (tarjeta de prueba "rechazada")
+        onResultado({ exito: false, total: total, direccion: direccion, mensaje: err.message });
+      } else {                    // por ejemplo 409: se acabó el stock mientras comprabas
+        setError(err.message);
+        await DB.cargarTienda().catch(() => {});
+        DB.limpiarCarrito();
+        setEnviando(false);
+      }
     }
-    const orden = DB.crearOrden(form.nombre.trim() + " " + form.apellidos.trim());   // guarda la orden y vacía el carrito
-    onResultado({ exito: true, orden: orden, total: total, direccion: direccion, correo: form.correo.trim() });
   }
 
   return (
@@ -148,7 +156,7 @@ function Checkout({ carrito, usuario, onResultado }) {
           </select>
         </div>
         <p className="error mensaje-form">{error}</p>
-        <button type="submit" className="btn-comprar" style={{ width: "100%" }}>Pagar {pesos(DB.totalCarrito())}</button>
+        <button type="submit" className="btn-comprar" style={{ width: "100%" }} disabled={enviando}>{enviando ? "Procesando…" : "Pagar " + pesos(DB.totalCarrito())}</button>
       </form>
     </div>
   );
@@ -164,7 +172,7 @@ function ResultadoCompra({ resultado, exito }) {
       <div className="contenedor">
         <div className="resultado fallo">
           <h2>✗ No se pudo realizar el pago</h2>
-          <p>Tu tarjeta fue rechazada. No se te cobró nada y tu carrito sigue igual.</p>
+          <p>{resultado.mensaje || "Tu tarjeta fue rechazada."} No se te cobró nada y tu carrito sigue igual.</p>
           <div className="botones">
             <a href="#/checkout" className="btn-comprar">Volver a intentar el pago</a>
             <a href="#/carrito" className="btn-secundario">Volver al carrito</a>

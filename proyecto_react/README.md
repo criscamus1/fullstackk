@@ -1,27 +1,28 @@
-# Tienda Virtual — versión React (DSY1104, Evaluación Parcial 2)
+# VEG – Frontend (React) conectado al backend Spring Boot
 
-Tienda + panel de administrador hechos con **React 18 desde CDN** (sin instalar nada, sin npm).
-Los datos se guardan en el navegador (localStorage); no hay servidor ni base de datos.
+Tienda de videojuegos. Los datos vienen del backend por API REST (MySQL) y la sesión usa JWT.
 
-## Cómo abrirla
-1. **Más fácil:** doble clic en `index-sin-servidor.html` (usa `dist/app.js`, ya compilado).
-2. **Para editar el código:** abre la carpeta en VS Code → clic derecho en `index.html` → *Open with Live Server*.
-   (Con doble clic `index.html` no funciona: Babel necesita un servidor para leer los componentes.)
-   También se puede subir tal cual a Netlify / GitHub Pages.
+## Cómo ejecutarlo (3 pasos)
+1. Enciende MySQL y el backend: `mvn spring-boot:run` (queda en `http://localhost:8080`).
+2. Haz **doble clic en `index.html`** (también sirve cualquier servidor estático, por ejemplo Live Server).
+3. Listo. Entra con `admin@tiendavirtual.cl` / `admin123` (ADMIN) o `juan@example.com` / `1234` (CLIENTE).
 
-## Cuentas de prueba
-- Administrador: `admin@tiendavirtual.cl` / `admin123` → entra a `#/admin`
-- Cliente: `juan@example.com` / `1234`
-- Tarjeta de pago "rechazada" en el checkout → muestra la vista de error de compra.
+Si el backend está en otra dirección, cambia `API_URL` en la primera línea de `js/api.js` y ejecuta `./build.sh`.
 
-## Estructura
-- `js/datos.js` datos de ejemplo (productos, categorías, usuarios, órdenes, mensajes, regiones/comunas)
-- `js/db.js` lectura/escritura en localStorage (`DB.productos()`, `DB.crearOrden()`, ...)
-- `js/App.js` rutas con hash (`#/productos/5`) y estado global (usuario, carrito)
-- `js/components/` componentes: Comunes, Home, Productos, DetalleProducto, Carrito (checkout + éxito/error), Blogs, Paginas (Ofertas, Nosotros, Contacto), Cuenta (login/registro), Admin + AdminSecciones (Dashboard, Órdenes, Productos, Categorías, Usuarios, Reportes, Perfil)
-- `dist/app.js` copia compilada de `js/` (si cambias algo en `js/`, la versión sin servidor no se actualiza)
-- `assets/` estilos · `img/`, `steam/`, `nintendo/` imágenes
+## Dónde está cada cosa
+| Tema | Archivo |
+|---|---|
+| fetch, token JWT, renovación (refresh), sesión en localStorage, login/registro/perfil | `js/api.js` |
+| Datos traídos de la API + carrito local | `js/db.js` |
+| Restaurar sesión al recargar, rutas, guardia por rol (`guardia`), sesión expirada | `js/App.js` |
+| Login, registro, "Mis compras", pantalla 403 | `js/components/Cuenta.js` |
+| Panel administrador (CRUD vía API) | `js/components/Admin.js`, `AdminSecciones.js` |
 
-## Datos guardados (localStorage)
-productos, stock, carrito, categorias, usuarios, ordenes, mensajes, sesion.
-Botón "Restaurar datos de ejemplo" en el Dashboard los borra.
+## Archivos
+- `index.html`: página principal (usa `dist/app.js`, ya compilado).
+- `index-dev.html`: igual, pero carga `js/` directo con Babel; sirve para editar y ver cambios al instante (necesita Live Server).
+- `build.sh`: después de editar `js/`, regenera `dist/app.js` (necesita esbuild: `npm i -g esbuild`).
+
+## Seguridad
+- El token se guarda en `localStorage` (clave `veg_sesion`) para que la sesión sobreviva a recargas. Un ataque XSS podría leerlo; en producción conviene una cookie HttpOnly.
+- Ocultar enlaces y bloquear pantallas por rol es solo experiencia de usuario: la seguridad real la aplica el backend (401/403).

@@ -1,8 +1,5 @@
-// ============================================================
-// Comunes.js — piezas que se usan en varias páginas:
 // funciones de ayuda, la barra de navegación, el pie de página y la tarjeta de producto.
 // Cada componente es una función que recibe "props" (sus datos de entrada) y devuelve JSX.
-// ============================================================
 
 function pesos(n) {
   return "$" + n.toLocaleString("es-CL");
@@ -68,10 +65,12 @@ function Navbar({ ruta, cantidadCarrito, usuario, onSalir }) {
           {enlace("#/contacto", "Contacto")}
           {enlace("#/carrito", <>🛒 Carrito <span className="badge-carrito">{cantidadCarrito}</span></>)}
           <span className="espacio"></span>
+          {/* Restricción por rol: el enlace al panel solo aparece si el usuario es administrador */}
+          {usuario && usuario.rol === "admin" && enlace("#/admin", "Administrador")}
           {usuario ? (
             <>
-              <span className="saludo">Hola, {usuario.nombre.split(" ")[0]}</span>
-              {usuario.rol === "admin" && <a href="#/admin">Administrador</a>}
+              {enlace("#/mis-compras", "Mis compras")}
+              <span className="saludo">Hola, {usuario.nombre.split(" ")[0]}{usuario.rol === "admin" ? " (admin)" : ""}</span>
               <button className="salir" onClick={onSalir}>Cerrar sesión</button>
             </>
           ) : (

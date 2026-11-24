@@ -1,21 +1,34 @@
 // ============================================================
 // Cuenta.js — iniciar sesión y registrarse.
-// La sesión se guarda en localStorage (DB.iniciarSesion) y App la lee para saber quién está conectado.
+// El login y el registro llaman al backend (Auth.login / Auth.registro). El backend responde con los tokens JWT,
+// que se guardan en localStorage para que la sesión siga activa al recargar la página.
 // Props: onLogin(usuario) — App guarda al usuario y cambia de página.
 // ============================================================
 
 function Login({ onLogin }) {
   const [form, setForm] = React.useState({ correo: "", clave: "" });
-  const [error, setError] = React.useState("");
+  // Mensaje que dejó la app, por ejemplo "Inicia sesión para continuar." o "Tu sesión expiró."
+  const [error, setError] = React.useState(() => {
+    const aviso = sessionStorage.getItem("veg_aviso") || "";
+    sessionStorage.removeItem("veg_aviso");
+    return aviso;
+  });
 
-  function entrar(e) {
+  const [enviando, setEnviando] = React.useState(false);
+
+  async function entrar(e) {
     e.preventDefault();
-    const usuario = DB.iniciarSesion(form.correo, form.clave);
-    if (!usuario) {
-      setError("Correo o contraseña incorrectos.");
+    if (!form.correo.trim() || !form.clave) {
+      setError("Escribe tu correo y tu contraseña.");
       return;
     }
-    onLogin(usuario);
+    setEnviando(true);
+    try {
+      onLogin(await Auth.login(form.correo, form.clave));
+    } catch (err) {
+      setError(err.message);   // "Correo o contraseña incorrectos." o "No se pudo conectar..."
+      setEnviando(false);
+    }
   }
 
   return (
@@ -24,11 +37,11 @@ function Login({ onLogin }) {
       <form className="form-caja" onSubmit={entrar} noValidate>
         <div className="grupo"><label>Correo electrónico</label><input type="email" value={form.correo} onChange={(e) => setForm({ ...form, correo: e.target.value })} /></div>
         <div className="grupo"><label>Contraseña</label><input type="password" value={form.clave} onChange={(e) => setForm({ ...form, clave: e.target.value })} /></div>
-        <button type="submit" className="btn-comprar">Iniciar sesión</button>
+        <button type="submit" className="btn-comprar" disabled={enviando}>{enviando ? "Entrando…" : "Iniciar sesión"}</button>
         <p className="error mensaje-form">{error}</p>
         <p>¿No tienes cuenta? <a href="#/registro">Regístrate aquí</a></p>
         <p style={{ fontSize: ".85rem", color: "var(--text-muted)" }}>
-          Para probar — administrador: admin@tiendavirtual.cl / admin123 · cliente: juan@example.com / 1234
+          Para probar — cliente: juan@example.com / 1234 · administrador: admin@tiendavirtual.cl / admin123
         </p>
       </form>
     </div>
@@ -43,9 +56,13 @@ function Registro({ onLogin }) {
     setForm({ ...form, [campo]: valor });
   }
 
-  function registrar(e) {
+  const [enviando, setEnviando] = React.useState(false);
+
+  async function registrar(e) {
     e.preventDefault();
-    let msg = DB.validarUsuario(form.nombre, form.correo, 0);   // nombre, correo válido y no repetido
+    let msg = "";
+    if (form.nombre.trim().length < 3) msg = "El nombre debe tener al menos 3 letras.";
+    if (!msg && !DB.emailValido(form.correo.trim())) msg = "El correo no es válido.";
     if (!msg && form.correo.trim() !== form.confcorreo.trim()) msg = "Los correos no coinciden.";
     if (!msg && form.clave.length < 4) msg = "La contraseña debe tener al menos 4 caracteres.";
     if (!msg && form.clave !== form.confclave) msg = "Las contraseñas no coinciden.";
@@ -54,10 +71,14 @@ function Registro({ onLogin }) {
       setError(msg);
       return;
     }
-    const usuarios = DB.usuarios();
-    usuarios.push({ id: DB.siguienteId(usuarios), nombre: form.nombre.trim(), email: form.correo.trim(), clave: form.clave, telefono: form.telefono.trim(), region: form.region, comuna: form.comuna, rol: "cliente" });
-    DB.guardarUsuarios(usuarios);
-    onLogin(DB.iniciarSesion(form.correo, form.clave));   // después de registrarse, entra directo
+    setEnviando(true);
+    try {
+      // El backend crea el usuario (siempre con rol cliente), guarda la contraseña cifrada y devuelve los tokens
+      onLogin(await Auth.registro({ nombre: form.nombre.trim(), email: form.correo.trim(), clave: form.clave, telefono: form.telefono.trim(), region: form.region, comuna: form.comuna }));
+    } catch (err) {
+      setError(err.message);   // por ejemplo: "Ese correo ya está registrado."
+      setEnviando(false);
+    }
   }
 
   return (
@@ -86,10 +107,52 @@ function Registro({ onLogin }) {
             </select>
           </div>
         </div>
-        <button type="submit" className="btn-comprar">Registrarme</button>
+        <button type="submit" className="btn-comprar" disabled={enviando}>{enviando ? "Creando cuenta…" : "Registrarme"}</button>
         <p className="error mensaje-form">{error}</p>
         <p>¿Ya tienes un usuario? <a href="#/login">Inicia sesión</a></p>
       </form>
+    </div>
+  );
+}
+
+// ---------- Mis compras: solo para usuarios con sesión (el backend devuelve únicamente SUS órdenes) ----------
+function MisCompras() {
+  const [estado, setEstado] = React.useState({ cargando: true, error: "" });
+
+  React.useEffect(() => {
+    DB.cargarMisOrdenes()
+      .then(() => setEstado({ cargando: false, error: "" }))
+      .catch((err) => setEstado({ cargando: false, error: err.message }));
+  }, []);
+
+  if (estado.cargando) return <div className="contenedor"><p>Cargando tus compras…</p></div>;
+  if (estado.error) return <div className="contenedor"><p className="error">{estado.error}</p></div>;
+  const lista = DB.misOrdenes();
+
+  return (
+    <div className="contenedor">
+      <h2>Mis compras</h2>
+      {lista.length === 0 && <p className="vacio">Todavía no has comprado nada. <a href="#/productos">Ir al catálogo</a></p>}
+      {lista.map((o) => (
+        <div key={o.id} className="caja">
+          <p><strong>{o.id}</strong> · {o.fecha} · <span className={"chip estado-" + o.estado}>{o.estado}</span></p>
+          <ul>{o.items.map((i) => <li key={i.id}>{i.nombre} x{i.cantidad} — {pesos(i.precio * i.cantidad)}</li>)}</ul>
+          <p className="total">Total: {pesos(DB.totalOrden(o))}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ---------- Pantallas de acceso restringido ----------
+function AccesoRestringido({ usuario }) {
+  return (
+    <div className="contenedor">
+      <div className="resultado fallo">
+        <h2>⛔ Acceso restringido (403)</h2>
+        <p>{usuario ? "Tu cuenta (" + usuario.email + ") tiene rol \"" + usuario.rol + "\" y no tiene permisos para ver esta sección." : "No tienes permisos para ver esta sección."}</p>
+        <div className="botones"><a href="#/" className="btn-comprar">Volver al inicio</a></div>
+      </div>
     </div>
   );
 }

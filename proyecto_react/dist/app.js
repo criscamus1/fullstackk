@@ -1,35 +1,4 @@
 // ---- js/datos.js
-const categoriasData = [
-  { id: 1, nombre: "RPG" },
-  { id: 2, nombre: "Deportes" },
-  { id: 3, nombre: "Survival" },
-  { id: 4, nombre: "Aventura" },
-  { id: 5, nombre: "Plataformas" },
-  { id: 6, nombre: "Simulaci\xF3n" },
-  { id: 7, nombre: "Terror" }
-];
-const productosData = [
-  { id: 1, nombre: "Crimson Desert", categoria: "RPG", plataforma: "PC/Consola", precio: 34990, descuento: 0, stock: 12, estrellas: "\u2605\u2605\u2605\u2605\u2BE8", video: "KMVtDrwrdqo", galeria: ["img/crimson/crimson1.jpg", "img/crimson/crimson2.jpg", "img/crimson/crimson3.jpg", "img/crimson/crimson4.jpg"], imagen: "steam/crimson.jpg", generos: ["RPG", "Mundo abierto", "Acci\xF3n"], descripcion: "RPG de mundo abierto ambientado en un continente en guerra." },
-  { id: 2, nombre: "EA Sports FC 27", categoria: "Deportes", plataforma: "PC/Consola", precio: 48990, descuento: 0, stock: 20, estrellas: "\u2605\u2605\u2605\u2605\u2606", video: "wRa2sZSpg9w", galeria: ["img/fifa/fifa1.jpg", "img/fifa/fifa2.jpg", "img/fifa/fifa3.jpg", "img/fifa/fifa4.jpg"], imagen: "steam/fifa.jpg", generos: ["Deportes", "F\xFAtbol", "Multijugador"], descripcion: "El simulador de f\xFAtbol m\xE1s popular, con clubes y ligas oficiales." },
-  { id: 3, nombre: "Project Zomboid", categoria: "Survival", plataforma: "PC", precio: 9990, descuento: 20, stock: 15, estrellas: "\u2605\u2605\u2605\u2605\u2BE8", video: "eFu2XTpopP8", galeria: ["img/project/project1.jpg", "img/project/project2.jpg", "img/project/project3.jpg", "img/project/project4.jpg"], imagen: "steam/project.jpg", generos: ["Survival", "Zombies", "Cooperativo"], descripcion: "Survival de zombies exigente, ideal para jugar en cooperativo." },
-  { id: 4, nombre: "Raft: The Final Chapter", categoria: "Survival", plataforma: "PC/Consola", precio: 12990, descuento: 15, stock: 18, estrellas: "\u2605\u2605\u2605\u2605\u2BE8", video: "f240Gq2zLxU", galeria: ["img/raft/raft1.jpg", "img/raft/raft2.jpg", "img/raft/raft3.jpg", "img/raft/raft4.jpg"], imagen: "steam/raft.jpg", generos: ["Supervivencia", "Construcci\xF3n", "Cooperativo"], descripcion: "Sobrevive a la deriva construyendo tu balsa en altamar." },
-  { id: 5, nombre: "Terraria", categoria: "Aventura", plataforma: "PC/Consola", precio: 9990, descuento: 25, stock: 25, estrellas: "\u2605\u2605\u2605\u2605\u2605", video: "_Q6NZSJtq8U", galeria: ["img/terraria/terraria1.jpg", "img/terraria/terraria2.jpg", "img/terraria/terraria3.jpg", "img/terraria/terraria4.jpg"], imagen: "steam/terraria.jpg", generos: ["Aventura", "Sandbox", "2D"], descripcion: "Aventura y construcci\xF3n en un mundo 2D generado aleatoriamente." },
-  { id: 6, nombre: "Lies of P: Complete Edition", categoria: "RPG", plataforma: "PC/Consola", precio: 39990, descuento: 0, stock: 10, estrellas: "\u2605\u2605\u2605\u2605\u2BE8", video: "PX0s7HYYFEA", galeria: ["img/lies/lies1.jpg", "img/lies/lies2.jpg", "img/lies/lies3.jpg", "img/lies/lies4.jpg"], imagen: "nintendo/lies.jpg", generos: ["Souls-like", "Acci\xF3n", "Fantas\xEDa oscura"], descripcion: "Souls-like oscuro inspirado en la historia de Pinocho." },
-  { id: 7, nombre: "Final Fantasy X | X-2 HD Remaster", categoria: "RPG", plataforma: "Nintendo/Consola", precio: 39990, descuento: 0, stock: 3, estrellas: "\u2605\u2605\u2605\u2605\u2606", video: "GDRH7fdoMAo", galeria: ["img/final/final1.jpg", "img/final/final2.jpg", "img/final/final3.jpg", "img/final/final4.jpg"], imagen: "nintendo/final.jpg", generos: ["JRPG", "Remaster", "Historia"], descripcion: "Dos cl\xE1sicos JRPG remasterizados en alta definici\xF3n." },
-  { id: 8, nombre: "Super Mario Bros. Wonder", categoria: "Plataformas", plataforma: "Consola", precio: 54990, descuento: 0, stock: 14, estrellas: "\u2605\u2605\u2605\u2605\u2605", video: "RjYZEE8G114", galeria: ["img/mario/mario1.jpg", "img/mario/mario2.jpg", "img/mario/mario3.jpg", "img/mario/mario4.jpg"], imagen: "nintendo/mario.jpg", generos: ["Plataformas", "Aventura", "Familiar"], descripcion: "Plataformas 2D con las sorprendentes flores maravilla." },
-  { id: 9, nombre: "Pok\xE9mon Pokopia", categoria: "Simulaci\xF3n", plataforma: "Nintendo", precio: 49990, descuento: 10, stock: 9, estrellas: "\u2605\u2605\u2605\u2605\u2606", video: "4uBeQbL0VJA", galeria: ["img/pokemon/pokemon1.jpg", "img/pokemon/pokemon2.jpg", "img/pokemon/pokemon3.jpg", "img/pokemon/pokemon4.jpg"], imagen: "nintendo/pokopia.jpg", generos: ["Simulaci\xF3n", "Aventura", "Familiar"], descripcion: "Cultiva y convive con tus Pok\xE9mon en tu propio pueblo." },
-  { id: 10, nombre: "Yoshi and the Mysterious Book", categoria: "Plataformas", plataforma: "Nintendo", precio: 54990, descuento: 0, stock: 11, estrellas: "\u2605\u2605\u2605\u2605\u2BE8", video: "3935UAivxGc", galeria: ["img/yoshi/yoshi1.jpg", "img/yoshi/yoshi2.jpg", "img/yoshi/yoshi3.jpg", "img/yoshi/yoshi4.jpg"], imagen: "nintendo/yoshi.jpg", generos: ["Plataformas", "Aventura", "Familiar"], descripcion: "Plataformero tierno con un precioso estilo hecho a mano." },
-  { id: 11, nombre: "ELDEN RING Tarnished Edition", categoria: "RPG", plataforma: "PC/Consola", precio: 34990, descuento: 0, stock: 16, estrellas: "\u2605\u2605\u2605\u2605\u2BE8", video: "QgYrhNb6wIw", galeria: ["img/elden/elden1.jpg", "img/elden/elden2.jpg", "img/elden/elden3.jpg", "img/elden/elden4.jpg"], imagen: "nintendo/elden.jpg", generos: ["RPG", "Mundo abierto", "Fantas\xEDa oscura"], descripcion: "Un vasto mundo de fantas\xEDa oscura creado junto a George R. R. Martin." },
-  { id: 12, nombre: "Resident Evil Requiem", categoria: "Terror", plataforma: "PC/Consola", precio: 44990, descuento: 0, stock: 7, estrellas: "\u2605\u2605\u2605\u2605\u2BE8", video: "yClDiMKcPl8", galeria: ["img/resident/resident1.jpg", "img/resident/resident2.jpg", "img/resident/resident3.jpg", "img/resident/resident4.jpg"], imagen: "nintendo/re9.jpg", generos: ["Terror", "Survival horror", "Acci\xF3n"], descripcion: "La nueva entrega de terror y survival horror de Capcom." }
-];
-const usuariosData = [
-  { id: 1, nombre: "Juan P\xE9rez", email: "juan@example.com", clave: "1234", rol: "cliente" },
-  { id: 2, nombre: "Mar\xEDa L\xF3pez", email: "maria@example.com", clave: "1234", rol: "cliente" },
-  { id: 4, nombre: "Carlos D\xEDaz", email: "carlos@example.com", clave: "1234", rol: "cliente" },
-  { id: 5, nombre: "Juan G\xF3mez", email: "juan.gomez@example.com", clave: "1234", rol: "cliente" },
-  { id: 6, nombre: "Fernanda Sanhueza", email: "fernanda@example.com", clave: "1234", rol: "cliente" },
-  { id: 7, nombre: "Administrador", email: "admin@tiendavirtual.cl", clave: "admin123", rol: "admin" }
-];
 const REGIONES = {
   "Regi\xF3n Metropolitana": ["Santiago", "Maip\xFA", "La Florida", "Puente Alto", "Las Condes"],
   "Valpara\xEDso": ["Valpara\xEDso", "Vi\xF1a del Mar", "Quilpu\xE9"],
@@ -41,40 +10,6 @@ const REGIONES = {
   "Antofagasta": ["Antofagasta", "Calama"],
   "Arica y Parinacota": ["Arica", "Putre"]
 };
-const ordenesData = [
-  { id: "TV-418230", fecha: "2026-09-28", cliente: "Juan P\xE9rez", estado: "Entregada", items: [
-    { id: 5, nombre: "Terraria", precio: 9990, cantidad: 2 },
-    { id: 3, nombre: "Project Zomboid", precio: 9990, cantidad: 1 }
-  ] },
-  { id: "TV-552071", fecha: "2026-10-01", cliente: "Mar\xEDa L\xF3pez", estado: "Entregada", items: [
-    { id: 11, nombre: "ELDEN RING Tarnished Edition", precio: 34990, cantidad: 1 },
-    { id: 6, nombre: "Lies of P: Complete Edition", precio: 39990, cantidad: 1 }
-  ] },
-  { id: "TV-637914", fecha: "2026-10-03", cliente: "Carlos D\xEDaz", estado: "Enviada", items: [
-    { id: 8, nombre: "Super Mario Bros. Wonder", precio: 54990, cantidad: 1 },
-    { id: 10, nombre: "Yoshi and the Mysterious Book", precio: 54990, cantidad: 1 }
-  ] },
-  { id: "TV-701285", fecha: "2026-10-05", cliente: "Fernanda Sanhueza", estado: "Pendiente", items: [
-    { id: 12, nombre: "Resident Evil Requiem", precio: 44990, cantidad: 1 }
-  ] },
-  { id: "TV-819346", fecha: "2026-10-07", cliente: "Juan G\xF3mez", estado: "Cancelada", items: [
-    { id: 2, nombre: "EA Sports FC 27", precio: 48990, cantidad: 1 }
-  ] },
-  { id: "TV-926450", fecha: "2026-10-09", cliente: "Mar\xEDa L\xF3pez", estado: "Pendiente", items: [
-    { id: 9, nombre: "Pok\xE9mon Pokopia", precio: 49990, cantidad: 1 },
-    { id: 4, nombre: "Raft: The Final Chapter", precio: 12990, cantidad: 2 },
-    { id: 5, nombre: "Terraria", precio: 9990, cantidad: 1 }
-  ] },
-  { id: "TV-934118", fecha: "2026-10-10", cliente: "Juan P\xE9rez", estado: "Enviada", items: [
-    { id: 1, nombre: "Crimson Desert", precio: 34990, cantidad: 1 },
-    { id: 3, nombre: "Project Zomboid", precio: 9990, cantidad: 2 }
-  ] }
-];
-const mensajesData = [
-  { id: 1, fecha: "2026-10-06", nombre: "Camila Rojas", email: "camila@example.com", texto: "Hola, \xBFcu\xE1ndo vuelve a haber stock de Final Fantasy X?", leido: true },
-  { id: 2, fecha: "2026-10-09", nombre: "Pedro Soto", email: "pedro@example.com", texto: "Mi pedido TV-926450 a\xFAn aparece pendiente, \xBFpueden revisarlo?", leido: false },
-  { id: 3, fecha: "2026-10-11", nombre: "Valentina Mu\xF1oz", email: "vale@example.com", texto: "Me encanta la tienda. \xBFPiensan agregar m\xE1s juegos de Nintendo?", leido: false }
-];
 const blogsData = [
   {
     id: 1,
@@ -112,54 +47,192 @@ const blogsData = [
     ]
   }
 ];
-// ---- js/db.js
-const DB = {
-  // ---------- Básicas ----------
-  leer(clave, porDefecto) {
+// ---- js/api.js
+const API_URL = "http://localhost:8080";
+class ApiError extends Error {
+  constructor(estado, mensaje) {
+    super(mensaje);
+    this.estado = estado;
+  }
+}
+const Sesion = {
+  leer() {
     try {
-      const valor = JSON.parse(localStorage.getItem(clave));
-      return valor === null ? porDefecto : valor;
+      return JSON.parse(localStorage.getItem("veg_sesion"));
     } catch (e) {
-      return porDefecto;
+      return null;
     }
   },
-  guardar(clave, valor) {
-    localStorage.setItem(clave, JSON.stringify(valor));
+  guardar(respuesta) {
+    localStorage.setItem("veg_sesion", JSON.stringify({ accessToken: respuesta.accessToken, refreshToken: respuesta.refreshToken }));
   },
-  siguienteId(lista) {
-    return Math.max(0, ...lista.map((x) => x.id)) + 1;
+  access() {
+    const s = Sesion.leer();
+    return s ? s.accessToken : null;
   },
-  restaurar() {
-    ["productos", "stock", "carrito", "categorias", "usuarios", "ordenes", "mensajes", "sesion"].forEach((c) => localStorage.removeItem(c));
+  refresh() {
+    const s = Sesion.leer();
+    return s ? s.refreshToken : null;
   },
-  // ---------- Productos y stock ----------
+  borrar() {
+    localStorage.removeItem("veg_sesion");
+  }
+};
+async function pedir(metodo, ruta, cuerpo, token) {
+  const cabeceras = { "Content-Type": "application/json" };
+  if (token) cabeceras["Authorization"] = "Bearer " + token;
+  try {
+    return await fetch(API_URL + ruta, { method: metodo, headers: cabeceras, body: cuerpo === void 0 ? void 0 : JSON.stringify(cuerpo) });
+  } catch (e) {
+    throw new ApiError(0, "No se pudo conectar con el servidor. \xBFEst\xE1 encendido el backend (" + API_URL + ")?");
+  }
+}
+async function procesar(respuesta) {
+  if (respuesta.status === 204) return null;
+  const datos = await respuesta.json().catch(() => null);
+  if (!respuesta.ok) {
+    throw new ApiError(respuesta.status, datos && datos.mensaje || "Error " + respuesta.status);
+  }
+  return datos;
+}
+async function renovarToken() {
+  try {
+    const r = await pedir("POST", "/api/auth/refresh", { refreshToken: Sesion.refresh() });
+    if (!r.ok) throw new Error("refresh rechazado");
+    Sesion.guardar(await r.json());
+    return true;
+  } catch (e) {
+    Sesion.borrar();
+    window.dispatchEvent(new Event("veg-sesion-expirada"));
+    return false;
+  }
+}
+async function api(metodo, ruta, cuerpo, publico) {
+  let respuesta = await pedir(metodo, ruta, cuerpo, publico ? null : Sesion.access());
+  if (respuesta.status === 401 && !publico && Sesion.refresh()) {
+    if (await renovarToken()) respuesta = await pedir(metodo, ruta, cuerpo, Sesion.access());
+  }
+  return procesar(respuesta);
+}
+const Auth = {
+  usuario: null,
+  // { id, nombre, email, rol: "admin" | "cliente", ... } o null
+  // Se llama al abrir la página: si hay tokens guardados, pregunta al backend quién es el usuario.
+  async restaurar() {
+    if (!Sesion.leer()) return null;
+    try {
+      Auth.usuario = await api("GET", "/api/auth/me");
+    } catch (e) {
+      if (e.estado !== 0) Sesion.borrar();
+      Auth.usuario = null;
+      if (e.estado === 0) throw e;
+    }
+    return Auth.usuario;
+  },
+  async login(email, clave) {
+    const r = await api("POST", "/api/auth/login", { email: email.trim(), clave }, true);
+    Sesion.guardar(r);
+    Auth.usuario = r.usuario;
+    return r.usuario;
+  },
+  async registro(datos) {
+    const r = await api("POST", "/api/auth/registro", datos, true);
+    Sesion.guardar(r);
+    Auth.usuario = r.usuario;
+    return r.usuario;
+  },
+  async actualizarPerfil(datos) {
+    const r = await api("PUT", "/api/auth/perfil", datos);
+    Sesion.guardar(r);
+    Auth.usuario = r.usuario;
+    return r.usuario;
+  },
+  salir() {
+    Sesion.borrar();
+    Auth.usuario = null;
+  },
+  esAdmin() {
+    return Auth.usuario !== null && Auth.usuario.rol === "admin";
+  }
+};
+// ---- js/db.js
+const DB = {
+  cache: { productos: [], categorias: [], ordenes: [], usuarios: [], mensajes: [], misOrdenes: [] },
+  // ---------- Carga desde el backend ----------
+  async cargarTienda() {
+    const [productos, categorias] = await Promise.all([api("GET", "/api/productos", void 0, true), api("GET", "/api/categorias", void 0, true)]);
+    DB.cache.productos = productos;
+    DB.cache.categorias = categorias;
+  },
+  async cargarAdmin() {
+    const [ordenes, usuarios, mensajes] = await Promise.all([api("GET", "/api/ordenes"), api("GET", "/api/usuarios"), api("GET", "/api/mensajes")]);
+    DB.cache.ordenes = ordenes.map(DB.normalizarOrden);
+    DB.cache.usuarios = usuarios;
+    DB.cache.mensajes = mensajes;
+  },
+  async cargarMisOrdenes() {
+    DB.cache.misOrdenes = (await api("GET", "/api/ordenes/mis")).map(DB.normalizarOrden);
+  },
+  // El backend manda "PENDIENTE" y productoId; la interfaz usa "Pendiente" e id.
+  normalizarOrden(o) {
+    return { ...o, estado: o.estado.charAt(0) + o.estado.slice(1).toLowerCase(), items: o.items.map((i) => ({ ...i, id: i.productoId })) };
+  },
+  // ---------- Lecturas (desde la copia en memoria) ----------
   productos() {
-    return DB.leer("productos", productosData);
-  },
-  guardarProductos(lista) {
-    DB.guardar("productos", lista);
+    return DB.cache.productos;
   },
   producto(id) {
-    return DB.productos().find((p) => p.id == id);
+    return DB.cache.productos.find((p) => p.id == id);
   },
-  stockDe(id) {
-    var _a;
-    const p = DB.producto(id);
-    return (_a = DB.leer("stock", {})[id]) != null ? _a : p ? p.stock : 0;
+  categorias() {
+    return DB.cache.categorias;
   },
-  guardarStock(id, unidades) {
-    const stocks = DB.leer("stock", {});
-    stocks[id] = unidades;
-    DB.guardar("stock", stocks);
+  ordenes() {
+    return DB.cache.ordenes;
+  },
+  misOrdenes() {
+    return DB.cache.misOrdenes;
+  },
+  usuarios() {
+    return DB.cache.usuarios;
+  },
+  mensajes() {
+    return DB.cache.mensajes;
+  },
+  usuarioActual() {
+    return Auth.usuario;
+  },
+  emailValido(email) {
+    return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
   },
   precioFinal(p) {
     return Math.round(p.precio * (100 - (p.descuento || 0)) / 100);
   },
-  // ---------- Carrito: [{ id, cantidad }] ----------
-  carrito() {
-    return DB.leer("carrito", []);
+  totalOrden(o) {
+    return o.items.reduce((s, i) => s + i.precio * i.cantidad, 0);
   },
-  // delta = +1 agrega (descuenta stock), -1 quita (devuelve stock). Devuelve false si no hay stock.
+  // ---------- Stock ----------
+  stockReal(id) {
+    const p = DB.producto(id);
+    return p ? p.stock : 0;
+  },
+  // el que hay en la base de datos
+  stockDe(id) {
+    const item = DB.carrito().find((i) => i.id == id);
+    return DB.stockReal(id) - (item ? item.cantidad : 0);
+  },
+  // ---------- Carrito: [{ id, cantidad }] en localStorage ----------
+  carrito() {
+    try {
+      return JSON.parse(localStorage.getItem("carrito")) || [];
+    } catch (e) {
+      return [];
+    }
+  },
+  guardarCarrito(lista) {
+    localStorage.setItem("carrito", JSON.stringify(lista));
+  },
+  // delta = +1 agrega, -1 quita. Devuelve false si no queda stock disponible.
   cambiarCarrito(id, delta) {
     id = Number(id);
     if (delta > DB.stockDe(id)) return false;
@@ -169,14 +242,16 @@ const DB = {
       item = { id, cantidad: 0 };
       carrito.push(item);
     }
-    delta = Math.max(delta, -item.cantidad);
-    item.cantidad += delta;
-    DB.guardarStock(id, DB.stockDe(id) - delta);
-    DB.guardar("carrito", carrito.filter((i) => i.cantidad > 0));
+    item.cantidad = Math.max(0, item.cantidad + delta);
+    DB.guardarCarrito(carrito.filter((i) => i.cantidad > 0));
     return true;
   },
   vaciarCarrito() {
-    DB.carrito().forEach((i) => DB.cambiarCarrito(i.id, -i.cantidad));
+    DB.guardarCarrito([]);
+  },
+  // Saca del carrito lo que ya no existe o supera el stock real (por si cambió desde la última visita)
+  limpiarCarrito() {
+    DB.guardarCarrito(DB.carrito().filter((i) => DB.producto(i.id)).map((i) => ({ ...i, cantidad: Math.min(i.cantidad, DB.stockReal(i.id)) })).filter((i) => i.cantidad > 0));
   },
   totalCarrito() {
     return DB.carrito().reduce((s, i) => s + DB.precioFinal(DB.producto(i.id)) * i.cantidad, 0);
@@ -184,76 +259,24 @@ const DB = {
   cantidadCarrito() {
     return DB.carrito().reduce((s, i) => s + i.cantidad, 0);
   },
-  // ---------- Órdenes ----------
-  ordenes() {
-    return DB.leer("ordenes", ordenesData);
-  },
-  guardarOrdenes(lista) {
-    DB.guardar("ordenes", lista);
-  },
-  totalOrden(o) {
-    return o.items.reduce((s, i) => s + i.precio * i.cantidad, 0);
-  },
-  // Convierte el carrito en una orden y lo vacía (el stock ya estaba descontado)
-  crearOrden(cliente) {
-    const items = DB.carrito().map((i) => {
-      const p = DB.producto(i.id);
-      return { id: p.id, nombre: p.nombre, precio: DB.precioFinal(p), cantidad: i.cantidad };
+  // ---------- Checkout: crea la orden en el backend ----------
+  // El backend valida el stock, lo descuenta y calcula los precios. Si el pago es "rechazada" responde 402.
+  async crearOrden(f) {
+    const orden = await api("POST", "/api/ordenes", {
+      items: DB.carrito().map((i) => ({ productoId: i.id, cantidad: i.cantidad })),
+      nombre: f.nombre.trim(),
+      apellidos: f.apellidos.trim(),
+      correo: f.correo.trim(),
+      calle: f.calle.trim(),
+      region: f.region,
+      comuna: f.comuna,
+      metodoPago: f.pago
     });
-    const orden = {
-      id: "TV-" + Math.floor(1e5 + Math.random() * 9e5),
-      fecha: (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
-      cliente,
-      estado: "Pendiente",
-      items
-    };
-    DB.guardarOrdenes(DB.ordenes().concat(orden));
-    DB.guardar("carrito", []);
-    return orden;
+    DB.vaciarCarrito();
+    await DB.cargarTienda();
+    return DB.normalizarOrden(orden);
   },
-  // ---------- Categorías, mensajes ----------
-  categorias() {
-    return DB.leer("categorias", categoriasData);
-  },
-  guardarCategorias(lista) {
-    DB.guardar("categorias", lista);
-  },
-  mensajes() {
-    return DB.leer("mensajes", mensajesData);
-  },
-  guardarMensajes(lista) {
-    DB.guardar("mensajes", lista);
-  },
-  // ---------- Usuarios y sesión ----------
-  usuarios() {
-    return DB.leer("usuarios", usuariosData);
-  },
-  guardarUsuarios(lista) {
-    DB.guardar("usuarios", lista);
-  },
-  emailValido(email) {
-    return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
-  },
-  // Devuelve el texto del error, o "" si los datos están bien (idActual = el usuario que se edita, 0 si es nuevo)
-  validarUsuario(nombre, email, idActual) {
-    if (nombre.trim().length < 3) return "El nombre debe tener al menos 3 letras.";
-    if (!DB.emailValido(email.trim())) return "El correo no es v\xE1lido.";
-    const repetido = DB.usuarios().some((u) => u.email.toLowerCase() === email.trim().toLowerCase() && u.id != idActual);
-    return repetido ? "Ese correo ya lo usa otro usuario." : "";
-  },
-  usuarioActual() {
-    const id = DB.leer("sesion", null);
-    return id === null ? null : DB.usuarios().find((u) => u.id === id) || null;
-  },
-  iniciarSesion(email, clave) {
-    const u = DB.usuarios().find((x) => x.email.toLowerCase() === email.trim().toLowerCase() && x.clave === clave);
-    if (u) DB.guardar("sesion", u.id);
-    return u || null;
-  },
-  cerrarSesion() {
-    localStorage.removeItem("sesion");
-  },
-  // ---------- Regiones y comunas ----------
+  // ---------- Regiones y comunas (datos fijos de datos.js) ----------
   regiones() {
     return Object.keys(REGIONES);
   },
@@ -286,7 +309,7 @@ function Navbar({ ruta, cantidadCarrito, usuario, onSalir }) {
     const activo = ruta === href || href !== "#/" && ruta.indexOf(href) === 0;
     return /* @__PURE__ */ React.createElement("a", { href, className: activo ? "activo" : "", onClick: () => setAbierto(false) }, contenido);
   }
-  return /* @__PURE__ */ React.createElement("header", { className: "barra" }, /* @__PURE__ */ React.createElement("div", { className: "barra-interior" }, /* @__PURE__ */ React.createElement("a", { href: "#/", className: "marca" }, /* @__PURE__ */ React.createElement("img", { src: "img/shoopingcart.jpg", alt: "" }), "Tienda virtual"), /* @__PURE__ */ React.createElement("button", { className: "menu-boton", onClick: () => setAbierto(!abierto), "aria-label": "Men\xFA" }, "\u2630"), /* @__PURE__ */ React.createElement("nav", { className: "menu" + (abierto ? " abierto" : "") }, enlace("#/", "Home"), enlace("#/productos", "Productos"), enlace("#/ofertas", "Ofertas"), enlace("#/blogs", "Blogs"), enlace("#/nosotros", "Nosotros"), enlace("#/contacto", "Contacto"), enlace("#/carrito", /* @__PURE__ */ React.createElement(React.Fragment, null, "\u{1F6D2} Carrito ", /* @__PURE__ */ React.createElement("span", { className: "badge-carrito" }, cantidadCarrito))), /* @__PURE__ */ React.createElement("span", { className: "espacio" }), usuario ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("span", { className: "saludo" }, "Hola, ", usuario.nombre.split(" ")[0]), usuario.rol === "admin" && /* @__PURE__ */ React.createElement("a", { href: "#/admin" }, "Administrador"), /* @__PURE__ */ React.createElement("button", { className: "salir", onClick: onSalir }, "Cerrar sesi\xF3n")) : /* @__PURE__ */ React.createElement(React.Fragment, null, enlace("#/login", "Iniciar sesi\xF3n"), enlace("#/registro", "Registrarse")))));
+  return /* @__PURE__ */ React.createElement("header", { className: "barra" }, /* @__PURE__ */ React.createElement("div", { className: "barra-interior" }, /* @__PURE__ */ React.createElement("a", { href: "#/", className: "marca" }, /* @__PURE__ */ React.createElement("img", { src: "img/shoopingcart.jpg", alt: "" }), "Tienda virtual"), /* @__PURE__ */ React.createElement("button", { className: "menu-boton", onClick: () => setAbierto(!abierto), "aria-label": "Men\xFA" }, "\u2630"), /* @__PURE__ */ React.createElement("nav", { className: "menu" + (abierto ? " abierto" : "") }, enlace("#/", "Home"), enlace("#/productos", "Productos"), enlace("#/ofertas", "Ofertas"), enlace("#/blogs", "Blogs"), enlace("#/nosotros", "Nosotros"), enlace("#/contacto", "Contacto"), enlace("#/carrito", /* @__PURE__ */ React.createElement(React.Fragment, null, "\u{1F6D2} Carrito ", /* @__PURE__ */ React.createElement("span", { className: "badge-carrito" }, cantidadCarrito))), /* @__PURE__ */ React.createElement("span", { className: "espacio" }), usuario && usuario.rol === "admin" && enlace("#/admin", "Administrador"), usuario ? /* @__PURE__ */ React.createElement(React.Fragment, null, enlace("#/mis-compras", "Mis compras"), /* @__PURE__ */ React.createElement("span", { className: "saludo" }, "Hola, ", usuario.nombre.split(" ")[0], usuario.rol === "admin" ? " (admin)" : ""), /* @__PURE__ */ React.createElement("button", { className: "salir", onClick: onSalir }, "Cerrar sesi\xF3n")) : /* @__PURE__ */ React.createElement(React.Fragment, null, enlace("#/login", "Iniciar sesi\xF3n"), enlace("#/registro", "Registrarse")))));
 }
 function Footer() {
   return /* @__PURE__ */ React.createElement("footer", { className: "pie" }, "\xA9 2026 Tienda Virtual \u2014 Consolas, juegos y accesorios para todos los gamers.");
@@ -388,6 +411,7 @@ function Checkout({ carrito, usuario, onResultado }) {
     pago: "aprobada"
   });
   const [error, setError] = React.useState("");
+  const [enviando, setEnviando] = React.useState(false);
   function cambiar(campo, valor) {
     setForm({ ...form, [campo]: valor });
   }
@@ -397,7 +421,7 @@ function Checkout({ carrito, usuario, onResultado }) {
   if (carrito.length === 0) {
     return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("div", { className: "carrito-vacio" }, /* @__PURE__ */ React.createElement("p", null, "No hay nada que pagar: tu carrito est\xE1 vac\xEDo."), /* @__PURE__ */ React.createElement("a", { href: "#/productos", className: "btn-comprar" }, "Ver productos")));
   }
-  function pagar(e) {
+  async function pagar(e) {
     e.preventDefault();
     if (!form.nombre.trim() || !form.apellidos.trim() || !form.calle.trim() || !form.region || !form.comuna) {
       setError("Completa todos los campos obligatorios (*).");
@@ -409,21 +433,31 @@ function Checkout({ carrito, usuario, onResultado }) {
     }
     const direccion = form.calle + ", " + form.comuna + ", " + form.region;
     const total = DB.totalCarrito();
-    if (form.pago === "rechazada") {
-      onResultado({ exito: false, total, direccion });
-      return;
+    setError("");
+    setEnviando(true);
+    try {
+      const orden = await DB.crearOrden(form);
+      onResultado({ exito: true, orden, total, direccion, correo: form.correo.trim() });
+    } catch (err) {
+      if (err.estado === 402) {
+        onResultado({ exito: false, total, direccion, mensaje: err.message });
+      } else {
+        setError(err.message);
+        await DB.cargarTienda().catch(() => {
+        });
+        DB.limpiarCarrito();
+        setEnviando(false);
+      }
     }
-    const orden = DB.crearOrden(form.nombre.trim() + " " + form.apellidos.trim());
-    onResultado({ exito: true, orden, total, direccion, correo: form.correo.trim() });
   }
-  return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("h2", { className: "centro" }, "Checkout"), /* @__PURE__ */ React.createElement("p", { className: "centro" }, "Total a pagar: ", /* @__PURE__ */ React.createElement("strong", null, pesos(DB.totalCarrito()))), /* @__PURE__ */ React.createElement("form", { className: "form-caja ancha", onSubmit: pagar, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "fila-2" }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Nombre*"), /* @__PURE__ */ React.createElement("input", { value: form.nombre, onChange: (e) => cambiar("nombre", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Apellidos*"), /* @__PURE__ */ React.createElement("input", { value: form.apellidos, onChange: (e) => cambiar("apellidos", e.target.value) }))), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Correo*"), /* @__PURE__ */ React.createElement("input", { type: "email", value: form.correo, onChange: (e) => cambiar("correo", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Calle y n\xFAmero*"), /* @__PURE__ */ React.createElement("input", { value: form.calle, onChange: (e) => cambiar("calle", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "fila-2" }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Regi\xF3n*"), /* @__PURE__ */ React.createElement("select", { value: form.region, onChange: (e) => cambiarRegion(e.target.value) }, /* @__PURE__ */ React.createElement("option", { value: "" }, "Selecciona una regi\xF3n"), DB.regiones().map((r) => /* @__PURE__ */ React.createElement("option", { key: r, value: r }, r)))), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Comuna*"), /* @__PURE__ */ React.createElement("select", { value: form.comuna, onChange: (e) => cambiar("comuna", e.target.value), disabled: !form.region }, /* @__PURE__ */ React.createElement("option", { value: "" }, form.region ? "Selecciona una comuna" : "Primero elige una regi\xF3n"), DB.comunas(form.region).map((c) => /* @__PURE__ */ React.createElement("option", { key: c, value: c }, c))))), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "M\xE9todo de pago (simulado)"), /* @__PURE__ */ React.createElement("select", { value: form.pago, onChange: (e) => cambiar("pago", e.target.value) }, /* @__PURE__ */ React.createElement("option", { value: "aprobada" }, "Tarjeta de prueba \u2014 aprobada"), /* @__PURE__ */ React.createElement("option", { value: "rechazada" }, "Tarjeta de prueba \u2014 rechazada"))), /* @__PURE__ */ React.createElement("p", { className: "error mensaje-form" }, error), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-comprar", style: { width: "100%" } }, "Pagar ", pesos(DB.totalCarrito()))));
+  return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("h2", { className: "centro" }, "Checkout"), /* @__PURE__ */ React.createElement("p", { className: "centro" }, "Total a pagar: ", /* @__PURE__ */ React.createElement("strong", null, pesos(DB.totalCarrito()))), /* @__PURE__ */ React.createElement("form", { className: "form-caja ancha", onSubmit: pagar, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "fila-2" }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Nombre*"), /* @__PURE__ */ React.createElement("input", { value: form.nombre, onChange: (e) => cambiar("nombre", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Apellidos*"), /* @__PURE__ */ React.createElement("input", { value: form.apellidos, onChange: (e) => cambiar("apellidos", e.target.value) }))), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Correo*"), /* @__PURE__ */ React.createElement("input", { type: "email", value: form.correo, onChange: (e) => cambiar("correo", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Calle y n\xFAmero*"), /* @__PURE__ */ React.createElement("input", { value: form.calle, onChange: (e) => cambiar("calle", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "fila-2" }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Regi\xF3n*"), /* @__PURE__ */ React.createElement("select", { value: form.region, onChange: (e) => cambiarRegion(e.target.value) }, /* @__PURE__ */ React.createElement("option", { value: "" }, "Selecciona una regi\xF3n"), DB.regiones().map((r) => /* @__PURE__ */ React.createElement("option", { key: r, value: r }, r)))), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Comuna*"), /* @__PURE__ */ React.createElement("select", { value: form.comuna, onChange: (e) => cambiar("comuna", e.target.value), disabled: !form.region }, /* @__PURE__ */ React.createElement("option", { value: "" }, form.region ? "Selecciona una comuna" : "Primero elige una regi\xF3n"), DB.comunas(form.region).map((c) => /* @__PURE__ */ React.createElement("option", { key: c, value: c }, c))))), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "M\xE9todo de pago (simulado)"), /* @__PURE__ */ React.createElement("select", { value: form.pago, onChange: (e) => cambiar("pago", e.target.value) }, /* @__PURE__ */ React.createElement("option", { value: "aprobada" }, "Tarjeta de prueba \u2014 aprobada"), /* @__PURE__ */ React.createElement("option", { value: "rechazada" }, "Tarjeta de prueba \u2014 rechazada"))), /* @__PURE__ */ React.createElement("p", { className: "error mensaje-form" }, error), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-comprar", style: { width: "100%" }, disabled: enviando }, enviando ? "Procesando\u2026" : "Pagar " + pesos(DB.totalCarrito()))));
 }
 function ResultadoCompra({ resultado, exito }) {
   if (!resultado || resultado.exito !== exito) {
     return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("p", null, "No hay ninguna compra para mostrar. ", /* @__PURE__ */ React.createElement("a", { href: "#/productos" }, "Ir a comprar")));
   }
   if (!exito) {
-    return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("div", { className: "resultado fallo" }, /* @__PURE__ */ React.createElement("h2", null, "\u2717 No se pudo realizar el pago"), /* @__PURE__ */ React.createElement("p", null, "Tu tarjeta fue rechazada. No se te cobr\xF3 nada y tu carrito sigue igual."), /* @__PURE__ */ React.createElement("div", { className: "botones" }, /* @__PURE__ */ React.createElement("a", { href: "#/checkout", className: "btn-comprar" }, "Volver a intentar el pago"), /* @__PURE__ */ React.createElement("a", { href: "#/carrito", className: "btn-secundario" }, "Volver al carrito"))));
+    return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("div", { className: "resultado fallo" }, /* @__PURE__ */ React.createElement("h2", null, "\u2717 No se pudo realizar el pago"), /* @__PURE__ */ React.createElement("p", null, resultado.mensaje || "Tu tarjeta fue rechazada.", " No se te cobr\xF3 nada y tu carrito sigue igual."), /* @__PURE__ */ React.createElement("div", { className: "botones" }, /* @__PURE__ */ React.createElement("a", { href: "#/checkout", className: "btn-comprar" }, "Volver a intentar el pago"), /* @__PURE__ */ React.createElement("a", { href: "#/carrito", className: "btn-secundario" }, "Volver al carrito"))));
   }
   return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("div", { className: "resultado exito" }, /* @__PURE__ */ React.createElement("h2", null, "\u2713 Se ha realizado la compra"), /* @__PURE__ */ React.createElement("p", null, "N\xFAmero de orden: ", /* @__PURE__ */ React.createElement("strong", null, resultado.orden.id)), /* @__PURE__ */ React.createElement("ul", null, resultado.orden.items.map((i) => /* @__PURE__ */ React.createElement("li", { key: i.id }, i.nombre, " x", i.cantidad, " \u2014 ", pesos(i.precio * i.cantidad)))), /* @__PURE__ */ React.createElement("p", { className: "total" }, "Total pagado: ", pesos(resultado.total)), /* @__PURE__ */ React.createElement("p", null, "Entrega en: ", resultado.direccion), /* @__PURE__ */ React.createElement("div", { className: "botones" }, /* @__PURE__ */ React.createElement("a", { href: "#/", className: "btn-comprar" }, "Volver al inicio"), /* @__PURE__ */ React.createElement("a", { href: "#/productos", className: "btn-secundario" }, "Seguir comprando"))));
 }
@@ -445,7 +479,7 @@ function Nosotros() {
 function Contacto({ usuario }) {
   const [form, setForm] = React.useState({ nombre: usuario ? usuario.nombre : "", correo: usuario ? usuario.email : "", texto: "" });
   const [aviso, setAviso] = React.useState(null);
-  function enviar(e) {
+  async function enviar(e) {
     e.preventDefault();
     let error = "";
     if (form.nombre.trim().length < 3) error = "El nombre debe tener al menos 3 letras.";
@@ -455,28 +489,40 @@ function Contacto({ usuario }) {
       setAviso({ texto: error, ok: false });
       return;
     }
-    const mensajes = DB.mensajes();
-    mensajes.push({ id: DB.siguienteId(mensajes), fecha: (/* @__PURE__ */ new Date()).toISOString().slice(0, 10), nombre: form.nombre.trim(), email: form.correo.trim(), texto: form.texto.trim(), leido: false });
-    DB.guardarMensajes(mensajes);
-    setForm({ ...form, texto: "" });
-    setAviso({ texto: "\xA1Mensaje enviado! Te responderemos pronto.", ok: true });
+    try {
+      await api("POST", "/api/mensajes", { nombre: form.nombre.trim(), email: form.correo.trim(), texto: form.texto.trim() }, true);
+      setForm({ ...form, texto: "" });
+      setAviso({ texto: "\xA1Mensaje enviado! Te responderemos pronto.", ok: true });
+    } catch (err) {
+      setAviso({ texto: err.message, ok: false });
+    }
   }
   return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("h2", { className: "centro" }, "Cont\xE1ctanos"), /* @__PURE__ */ React.createElement("form", { className: "form-caja", onSubmit: enviar, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Nombre completo"), /* @__PURE__ */ React.createElement("input", { value: form.nombre, onChange: (e) => setForm({ ...form, nombre: e.target.value }), placeholder: "Registra tu nombre completo" })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Correo"), /* @__PURE__ */ React.createElement("input", { type: "email", value: form.correo, onChange: (e) => setForm({ ...form, correo: e.target.value }), placeholder: "Registra tu correo" })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Mensaje"), /* @__PURE__ */ React.createElement("textarea", { rows: "4", value: form.texto, onChange: (e) => setForm({ ...form, texto: e.target.value }), placeholder: "Escribe tu mensaje para la tienda" })), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-comprar" }, "Enviar mensaje"), aviso && /* @__PURE__ */ React.createElement("p", { className: "mensaje-form " + (aviso.ok ? "ok" : "error") }, aviso.texto)));
 }
 // ---- js/components/Cuenta.js
 function Login({ onLogin }) {
   const [form, setForm] = React.useState({ correo: "", clave: "" });
-  const [error, setError] = React.useState("");
-  function entrar(e) {
+  const [error, setError] = React.useState(() => {
+    const aviso = sessionStorage.getItem("veg_aviso") || "";
+    sessionStorage.removeItem("veg_aviso");
+    return aviso;
+  });
+  const [enviando, setEnviando] = React.useState(false);
+  async function entrar(e) {
     e.preventDefault();
-    const usuario = DB.iniciarSesion(form.correo, form.clave);
-    if (!usuario) {
-      setError("Correo o contrase\xF1a incorrectos.");
+    if (!form.correo.trim() || !form.clave) {
+      setError("Escribe tu correo y tu contrase\xF1a.");
       return;
     }
-    onLogin(usuario);
+    setEnviando(true);
+    try {
+      onLogin(await Auth.login(form.correo, form.clave));
+    } catch (err) {
+      setError(err.message);
+      setEnviando(false);
+    }
   }
-  return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("h2", { className: "centro" }, "Bienvenido a VEG"), /* @__PURE__ */ React.createElement("form", { className: "form-caja", onSubmit: entrar, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Correo electr\xF3nico"), /* @__PURE__ */ React.createElement("input", { type: "email", value: form.correo, onChange: (e) => setForm({ ...form, correo: e.target.value }) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Contrase\xF1a"), /* @__PURE__ */ React.createElement("input", { type: "password", value: form.clave, onChange: (e) => setForm({ ...form, clave: e.target.value }) })), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-comprar" }, "Iniciar sesi\xF3n"), /* @__PURE__ */ React.createElement("p", { className: "error mensaje-form" }, error), /* @__PURE__ */ React.createElement("p", null, "\xBFNo tienes cuenta? ", /* @__PURE__ */ React.createElement("a", { href: "#/registro" }, "Reg\xEDstrate aqu\xED")), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".85rem", color: "var(--text-muted)" } }, "Para probar \u2014 administrador: admin@tiendavirtual.cl / admin123 \xB7 cliente: juan@example.com / 1234")));
+  return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("h2", { className: "centro" }, "Bienvenido a VEG"), /* @__PURE__ */ React.createElement("form", { className: "form-caja", onSubmit: entrar, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Correo electr\xF3nico"), /* @__PURE__ */ React.createElement("input", { type: "email", value: form.correo, onChange: (e) => setForm({ ...form, correo: e.target.value }) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Contrase\xF1a"), /* @__PURE__ */ React.createElement("input", { type: "password", value: form.clave, onChange: (e) => setForm({ ...form, clave: e.target.value }) })), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-comprar", disabled: enviando }, enviando ? "Entrando\u2026" : "Iniciar sesi\xF3n"), /* @__PURE__ */ React.createElement("p", { className: "error mensaje-form" }, error), /* @__PURE__ */ React.createElement("p", null, "\xBFNo tienes cuenta? ", /* @__PURE__ */ React.createElement("a", { href: "#/registro" }, "Reg\xEDstrate aqu\xED")), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".85rem", color: "var(--text-muted)" } }, "Para probar \u2014 cliente: juan@example.com / 1234 \xB7 administrador: admin@tiendavirtual.cl / admin123")));
 }
 function Registro({ onLogin }) {
   const [form, setForm] = React.useState({ nombre: "", correo: "", confcorreo: "", clave: "", confclave: "", telefono: "", region: "", comuna: "" });
@@ -484,9 +530,12 @@ function Registro({ onLogin }) {
   function cambiar(campo, valor) {
     setForm({ ...form, [campo]: valor });
   }
-  function registrar(e) {
+  const [enviando, setEnviando] = React.useState(false);
+  async function registrar(e) {
     e.preventDefault();
-    let msg = DB.validarUsuario(form.nombre, form.correo, 0);
+    let msg = "";
+    if (form.nombre.trim().length < 3) msg = "El nombre debe tener al menos 3 letras.";
+    if (!msg && !DB.emailValido(form.correo.trim())) msg = "El correo no es v\xE1lido.";
     if (!msg && form.correo.trim() !== form.confcorreo.trim()) msg = "Los correos no coinciden.";
     if (!msg && form.clave.length < 4) msg = "La contrase\xF1a debe tener al menos 4 caracteres.";
     if (!msg && form.clave !== form.confclave) msg = "Las contrase\xF1as no coinciden.";
@@ -495,12 +544,28 @@ function Registro({ onLogin }) {
       setError(msg);
       return;
     }
-    const usuarios = DB.usuarios();
-    usuarios.push({ id: DB.siguienteId(usuarios), nombre: form.nombre.trim(), email: form.correo.trim(), clave: form.clave, telefono: form.telefono.trim(), region: form.region, comuna: form.comuna, rol: "cliente" });
-    DB.guardarUsuarios(usuarios);
-    onLogin(DB.iniciarSesion(form.correo, form.clave));
+    setEnviando(true);
+    try {
+      onLogin(await Auth.registro({ nombre: form.nombre.trim(), email: form.correo.trim(), clave: form.clave, telefono: form.telefono.trim(), region: form.region, comuna: form.comuna }));
+    } catch (err) {
+      setError(err.message);
+      setEnviando(false);
+    }
   }
-  return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("h2", { className: "centro" }, "Registrar en VEG"), /* @__PURE__ */ React.createElement("form", { className: "form-caja", onSubmit: registrar, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Nombre completo"), /* @__PURE__ */ React.createElement("input", { value: form.nombre, onChange: (e) => cambiar("nombre", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Correo electr\xF3nico"), /* @__PURE__ */ React.createElement("input", { type: "email", value: form.correo, onChange: (e) => cambiar("correo", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Confirmar correo"), /* @__PURE__ */ React.createElement("input", { type: "email", value: form.confcorreo, onChange: (e) => cambiar("confcorreo", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Contrase\xF1a"), /* @__PURE__ */ React.createElement("input", { type: "password", value: form.clave, onChange: (e) => cambiar("clave", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Confirmar contrase\xF1a"), /* @__PURE__ */ React.createElement("input", { type: "password", value: form.confclave, onChange: (e) => cambiar("confclave", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Tel\xE9fono (opcional)"), /* @__PURE__ */ React.createElement("input", { value: form.telefono, onChange: (e) => cambiar("telefono", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "fila-2" }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Regi\xF3n"), /* @__PURE__ */ React.createElement("select", { value: form.region, onChange: (e) => setForm({ ...form, region: e.target.value, comuna: "" }) }, /* @__PURE__ */ React.createElement("option", { value: "" }, "Regi\xF3n"), DB.regiones().map((r) => /* @__PURE__ */ React.createElement("option", { key: r, value: r }, r)))), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Comuna"), /* @__PURE__ */ React.createElement("select", { value: form.comuna, onChange: (e) => cambiar("comuna", e.target.value), disabled: !form.region }, /* @__PURE__ */ React.createElement("option", { value: "" }, "Comuna"), DB.comunas(form.region).map((c) => /* @__PURE__ */ React.createElement("option", { key: c, value: c }, c))))), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-comprar" }, "Registrarme"), /* @__PURE__ */ React.createElement("p", { className: "error mensaje-form" }, error), /* @__PURE__ */ React.createElement("p", null, "\xBFYa tienes un usuario? ", /* @__PURE__ */ React.createElement("a", { href: "#/login" }, "Inicia sesi\xF3n"))));
+  return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("h2", { className: "centro" }, "Registrar en VEG"), /* @__PURE__ */ React.createElement("form", { className: "form-caja", onSubmit: registrar, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Nombre completo"), /* @__PURE__ */ React.createElement("input", { value: form.nombre, onChange: (e) => cambiar("nombre", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Correo electr\xF3nico"), /* @__PURE__ */ React.createElement("input", { type: "email", value: form.correo, onChange: (e) => cambiar("correo", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Confirmar correo"), /* @__PURE__ */ React.createElement("input", { type: "email", value: form.confcorreo, onChange: (e) => cambiar("confcorreo", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Contrase\xF1a"), /* @__PURE__ */ React.createElement("input", { type: "password", value: form.clave, onChange: (e) => cambiar("clave", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Confirmar contrase\xF1a"), /* @__PURE__ */ React.createElement("input", { type: "password", value: form.confclave, onChange: (e) => cambiar("confclave", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Tel\xE9fono (opcional)"), /* @__PURE__ */ React.createElement("input", { value: form.telefono, onChange: (e) => cambiar("telefono", e.target.value) })), /* @__PURE__ */ React.createElement("div", { className: "fila-2" }, /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Regi\xF3n"), /* @__PURE__ */ React.createElement("select", { value: form.region, onChange: (e) => setForm({ ...form, region: e.target.value, comuna: "" }) }, /* @__PURE__ */ React.createElement("option", { value: "" }, "Regi\xF3n"), DB.regiones().map((r) => /* @__PURE__ */ React.createElement("option", { key: r, value: r }, r)))), /* @__PURE__ */ React.createElement("div", { className: "grupo" }, /* @__PURE__ */ React.createElement("label", null, "Comuna"), /* @__PURE__ */ React.createElement("select", { value: form.comuna, onChange: (e) => cambiar("comuna", e.target.value), disabled: !form.region }, /* @__PURE__ */ React.createElement("option", { value: "" }, "Comuna"), DB.comunas(form.region).map((c) => /* @__PURE__ */ React.createElement("option", { key: c, value: c }, c))))), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-comprar", disabled: enviando }, enviando ? "Creando cuenta\u2026" : "Registrarme"), /* @__PURE__ */ React.createElement("p", { className: "error mensaje-form" }, error), /* @__PURE__ */ React.createElement("p", null, "\xBFYa tienes un usuario? ", /* @__PURE__ */ React.createElement("a", { href: "#/login" }, "Inicia sesi\xF3n"))));
+}
+function MisCompras() {
+  const [estado, setEstado] = React.useState({ cargando: true, error: "" });
+  React.useEffect(() => {
+    DB.cargarMisOrdenes().then(() => setEstado({ cargando: false, error: "" })).catch((err) => setEstado({ cargando: false, error: err.message }));
+  }, []);
+  if (estado.cargando) return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("p", null, "Cargando tus compras\u2026"));
+  if (estado.error) return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("p", { className: "error" }, estado.error));
+  const lista = DB.misOrdenes();
+  return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("h2", null, "Mis compras"), lista.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "vacio" }, "Todav\xEDa no has comprado nada. ", /* @__PURE__ */ React.createElement("a", { href: "#/productos" }, "Ir al cat\xE1logo")), lista.map((o) => /* @__PURE__ */ React.createElement("div", { key: o.id, className: "caja" }, /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, o.id), " \xB7 ", o.fecha, " \xB7 ", /* @__PURE__ */ React.createElement("span", { className: "chip estado-" + o.estado }, o.estado)), /* @__PURE__ */ React.createElement("ul", null, o.items.map((i) => /* @__PURE__ */ React.createElement("li", { key: i.id }, i.nombre, " x", i.cantidad, " \u2014 ", pesos(i.precio * i.cantidad)))), /* @__PURE__ */ React.createElement("p", { className: "total" }, "Total: ", pesos(DB.totalOrden(o))))));
+}
+function AccesoRestringido({ usuario }) {
+  return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("div", { className: "resultado fallo" }, /* @__PURE__ */ React.createElement("h2", null, "\u26D4 Acceso restringido (403)"), /* @__PURE__ */ React.createElement("p", null, usuario ? "Tu cuenta (" + usuario.email + ') tiene rol "' + usuario.rol + '" y no tiene permisos para ver esta secci\xF3n.' : "No tienes permisos para ver esta secci\xF3n."), /* @__PURE__ */ React.createElement("div", { className: "botones" }, /* @__PURE__ */ React.createElement("a", { href: "#/", className: "btn-comprar" }, "Volver al inicio"))));
 }
 // ---- js/components/Admin.js
 const SECCIONES_ADMIN = [
@@ -513,8 +578,13 @@ const SECCIONES_ADMIN = [
   ["perfil", "\u{1F464} Perfil"]
 ];
 function Admin({ seccion, usuario, onSalir, onUsuarioCambio }) {
+  const [carga, setCarga] = React.useState({ listo: false, error: "" });
+  React.useEffect(() => {
+    Promise.all([DB.cargarAdmin(), DB.cargarTienda()]).then(() => setCarga({ listo: true, error: "" })).catch((err) => setCarga({ listo: false, error: err.message }));
+  }, []);
   let contenido;
-  if (seccion === "ordenes") contenido = /* @__PURE__ */ React.createElement(AdminOrdenes, null);
+  if (!carga.listo) contenido = carga.error ? /* @__PURE__ */ React.createElement("p", { className: "error-form" }, carga.error) : /* @__PURE__ */ React.createElement("p", { className: "vacio" }, "Cargando datos\u2026");
+  else if (seccion === "ordenes") contenido = /* @__PURE__ */ React.createElement(AdminOrdenes, null);
   else if (seccion === "productos") contenido = /* @__PURE__ */ React.createElement(AdminProductos, null);
   else if (seccion === "categorias") contenido = /* @__PURE__ */ React.createElement(AdminCategorias, null);
   else if (seccion === "usuarios") contenido = /* @__PURE__ */ React.createElement(AdminUsuarios, { usuario });
@@ -555,9 +625,9 @@ function ListaCrud({ nombre, cabeceras, lista, fila, vacio, campos, guardar, bor
   function cambiar(campo, valor) {
     setForm({ ...form, [campo]: valor });
   }
-  function enviar(e) {
+  async function enviar(e) {
     e.preventDefault();
-    const msg = guardar(form, !!form._nuevo);
+    const msg = await guardar(form, !!form._nuevo);
     if (msg) {
       setError(msg);
       return;
@@ -566,9 +636,9 @@ function ListaCrud({ nombre, cabeceras, lista, fila, vacio, campos, guardar, bor
     setAviso({ texto: "Guardado correctamente." });
     alCambiar();
   }
-  function eliminar(item) {
+  async function eliminar(item) {
     if (!window.confirm("\xBFSeguro que quieres eliminarlo?")) return;
-    setAviso(borrar(item));
+    setAviso(await borrar(item));
     alCambiar();
   }
   return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(Aviso, { aviso }), form && /* @__PURE__ */ React.createElement("form", { className: "caja", onSubmit: enviar, noValidate: true }, /* @__PURE__ */ React.createElement("h2", null, form._nuevo ? "Agregar " + nombre : "Editar " + nombre + " #" + form.id), /* @__PURE__ */ React.createElement("div", { className: "campos" }, campos(form, cambiar)), /* @__PURE__ */ React.createElement("p", { className: "error-form" }, error), /* @__PURE__ */ React.createElement("div", { className: "fila-botones" }, /* @__PURE__ */ React.createElement("button", { type: "submit" }, "Guardar"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "sec", onClick: () => setForm(null) }, "Cancelar"))), /* @__PURE__ */ React.createElement("div", { className: "fila-botones" }, /* @__PURE__ */ React.createElement("button", { onClick: () => abrir({ ...vacio, _nuevo: true }) }, "+ Agregar ", nombre)), /* @__PURE__ */ React.createElement(Tabla, { cabeceras: cabeceras.concat("") }, lista.map((item) => /* @__PURE__ */ React.createElement("tr", { key: item.id }, fila(item), /* @__PURE__ */ React.createElement("td", { className: "acciones" }, /* @__PURE__ */ React.createElement("button", { className: "sec chico", onClick: () => abrir({ ...item }) }, "Editar"), " ", /* @__PURE__ */ React.createElement("button", { className: "peligro chico", onClick: () => eliminar(item) }, "Eliminar"))))));
@@ -578,46 +648,88 @@ const ESTADOS = ["Pendiente", "Enviada", "Entregada", "Cancelada"];
 function ventasValidas() {
   return DB.ordenes().filter((o) => o.estado !== "Cancelada");
 }
+function textoError(err) {
+  return err && err.message ? err.message : "Ocurri\xF3 un error.";
+}
+function cuerpoProducto(p, cambios) {
+  return {
+    nombre: p.nombre,
+    categoria: p.categoria,
+    plataforma: p.plataforma,
+    precio: p.precio,
+    descuento: p.descuento || 0,
+    stock: p.stock,
+    estrellas: p.estrellas,
+    video: p.video,
+    imagen: p.imagen,
+    galeria: p.galeria || [],
+    generos: p.generos || [],
+    descripcion: p.descripcion,
+    ...cambios
+  };
+}
+function validarUsuario(nombre, email, idActual) {
+  if (nombre.trim().length < 3) return "El nombre debe tener al menos 3 letras.";
+  if (!DB.emailValido(email.trim())) return "El correo no es v\xE1lido.";
+  const repetido = DB.usuarios().some((u) => u.email.toLowerCase() === email.trim().toLowerCase() && u.id != idActual);
+  return repetido ? "Ese correo ya lo usa otro usuario." : "";
+}
 function AdminDashboard() {
+  const refrescar = useRefrescar();
   const [producto, setProducto] = React.useState("");
   const [stock, setStock] = React.useState("");
   const [aviso, setAviso] = React.useState(null);
+  const [resumen, setResumen] = React.useState(null);
+  function cargarResumen() {
+    api("GET", "/api/reportes/resumen").then(setResumen).catch((err) => setAviso({ texto: textoError(err), malo: true }));
+  }
+  React.useEffect(cargarResumen, []);
   const productos = DB.productos();
   const elegido = producto || (productos.length ? productos[0].id : "");
-  const ventas = ventasValidas().reduce((s, o) => s + DB.totalOrden(o), 0);
-  const nuevos = DB.mensajes().filter((m) => !m.leido).length;
-  function guardarStock(e) {
+  async function guardarStock(e) {
     e.preventDefault();
     const n = Number(stock);
     if (elegido === "" || stock === "" || !Number.isInteger(n) || n < 0) {
       setAviso({ texto: "El stock debe ser un n\xFAmero entero (0 o m\xE1s).", malo: true });
       return;
     }
-    DB.guardarStock(elegido, n);
-    setStock("");
-    setAviso({ texto: "Stock actualizado." });
+    try {
+      const p = DB.producto(elegido);
+      await api("PUT", "/api/productos/" + p.id, cuerpoProducto(p, { stock: n }));
+      await DB.cargarTienda();
+      setStock("");
+      setAviso({ texto: "Stock actualizado." });
+      cargarResumen();
+      refrescar();
+    } catch (err) {
+      setAviso({ texto: textoError(err), malo: true });
+    }
   }
-  function restaurar() {
-    if (!window.confirm("Se borrar\xE1n los cambios guardados en este navegador y volver\xE1n los datos de ejemplo. \xBFContinuar?")) return;
-    DB.restaurar();
-    window.location.hash = "#/";
-    window.location.reload();
-  }
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "kpis" }, /* @__PURE__ */ React.createElement(Kpi, { titulo: "Ventas totales", valor: pesos(ventas) }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "\xD3rdenes", valor: DB.ordenes().length }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "Productos", valor: productos.length }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "Usuarios", valor: DB.usuarios().length }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "Mensajes nuevos", valor: nuevos, alerta: nuevos > 0 })), /* @__PURE__ */ React.createElement("h2", null, "Cambiar el stock de un producto"), /* @__PURE__ */ React.createElement(Aviso, { aviso }), /* @__PURE__ */ React.createElement("form", { className: "caja", onSubmit: guardarStock, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "campos" }, /* @__PURE__ */ React.createElement("label", null, "Producto", /* @__PURE__ */ React.createElement("select", { value: elegido, onChange: (e) => setProducto(e.target.value) }, productos.map((p) => /* @__PURE__ */ React.createElement("option", { key: p.id, value: p.id }, p.nombre, " (stock ", DB.stockDe(p.id), ")")))), /* @__PURE__ */ React.createElement(Campo, { etiqueta: "Nuevo stock", tipo: "number", valor: stock, onCambio: setStock })), /* @__PURE__ */ React.createElement("button", { type: "submit" }, "Guardar stock")), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("button", { className: "peligro chico", onClick: restaurar }, "Restaurar datos de ejemplo")));
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "kpis" }, /* @__PURE__ */ React.createElement(Kpi, { titulo: "Ventas totales", valor: resumen ? pesos(resumen.ventasTotales) : "\u2026" }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "\xD3rdenes", valor: resumen ? resumen.ordenes : "\u2026" }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "Productos", valor: resumen ? resumen.productos : "\u2026" }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "Usuarios", valor: resumen ? resumen.usuarios : "\u2026" }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "Mensajes nuevos", valor: resumen ? resumen.mensajesNuevos : "\u2026", alerta: resumen && resumen.mensajesNuevos > 0 })), /* @__PURE__ */ React.createElement("h2", null, "Cambiar el stock de un producto"), /* @__PURE__ */ React.createElement(Aviso, { aviso }), /* @__PURE__ */ React.createElement("form", { className: "caja", onSubmit: guardarStock, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "campos" }, /* @__PURE__ */ React.createElement("label", null, "Producto", /* @__PURE__ */ React.createElement("select", { value: elegido, onChange: (e) => setProducto(e.target.value) }, productos.map((p) => /* @__PURE__ */ React.createElement("option", { key: p.id, value: p.id }, p.nombre, " (stock ", p.stock, ")")))), /* @__PURE__ */ React.createElement(Campo, { etiqueta: "Nuevo stock", tipo: "number", valor: stock, onCambio: setStock })), /* @__PURE__ */ React.createElement("button", { type: "submit" }, "Guardar stock")));
 }
 function AdminOrdenes() {
   const refrescar = useRefrescar();
   const [aviso, setAviso] = React.useState(null);
   const lista = DB.ordenes().slice().sort((a, b) => b.fecha.localeCompare(a.fecha) || b.id.localeCompare(a.id));
-  function cambiarEstado(id, estado) {
-    DB.guardarOrdenes(DB.ordenes().map((o) => o.id === id ? { ...o, estado } : o));
-    setAviso({ texto: "Estado de la orden actualizado." });
+  async function cambiarEstado(id, estado) {
+    try {
+      await api("PUT", "/api/ordenes/" + id + "/estado", { estado: estado.toUpperCase() });
+      await Promise.all([DB.cargarAdmin(), DB.cargarTienda()]);
+      setAviso({ texto: "Estado de la orden actualizado." });
+    } catch (err) {
+      setAviso({ texto: textoError(err), malo: true });
+    }
     refrescar();
   }
-  function eliminar(id) {
+  async function eliminar(id) {
     if (!window.confirm("\xBFSeguro que quieres eliminarlo?")) return;
-    DB.guardarOrdenes(DB.ordenes().filter((o) => o.id !== id));
-    setAviso({ texto: "Orden eliminada." });
+    try {
+      await api("DELETE", "/api/ordenes/" + id);
+      await DB.cargarAdmin();
+      setAviso({ texto: "Orden eliminada." });
+    } catch (err) {
+      setAviso({ texto: textoError(err), malo: true });
+    }
     refrescar();
   }
   if (lista.length === 0) return /* @__PURE__ */ React.createElement("p", { className: "vacio" }, "No hay \xF3rdenes.");
@@ -625,9 +737,9 @@ function AdminOrdenes() {
 }
 function AdminProductos() {
   const refrescar = useRefrescar();
-  const lista = DB.productos().map((p) => ({ ...p, stock: DB.stockDe(p.id) }));
-  function guardar(f, esNuevo) {
-    const todos = DB.productos().map((p) => ({ ...p }));
+  const lista = DB.productos().map((p) => ({ ...p }));
+  async function guardar(f, esNuevo) {
+    const todos = DB.productos();
     const nombre = f.nombre.trim(), precio = Number(f.precio), stock = Number(f.stock), descuento = Number(f.descuento || 0);
     if (nombre.length < 3) return "El nombre debe tener al menos 3 letras.";
     if (todos.some((p) => p.nombre.toLowerCase() === nombre.toLowerCase() && p.id !== f.id)) return "Ya existe un producto con ese nombre.";
@@ -637,22 +749,27 @@ function AdminProductos() {
     if (f.stock === "" || !Number.isInteger(stock) || stock < 0) return "El stock debe ser un n\xFAmero entero (0 o m\xE1s).";
     if (!String(f.imagen || "").trim()) return "Falta la ruta de la imagen (ej: steam/terraria.jpg).";
     const datos = { nombre, categoria: f.categoria, precio, descuento, stock, imagen: f.imagen.trim() };
-    let id = f.id;
-    if (esNuevo) {
-      id = DB.siguienteId(todos);
-      todos.push({ id, plataforma: "PC", estrellas: "\u2605\u2605\u2605\u2605\u2606", video: "", generos: [f.categoria], descripcion: "Sin descripci\xF3n.", ...datos });
-    } else {
-      const i = todos.findIndex((p) => p.id === id);
-      todos[i] = { ...todos[i], ...datos };
+    try {
+      if (esNuevo) {
+        await api("POST", "/api/productos", { plataforma: "PC", estrellas: "\u2605\u2605\u2605\u2605\u2606", video: "", generos: [f.categoria], descripcion: "Sin descripci\xF3n.", galeria: [], ...datos });
+      } else {
+        await api("PUT", "/api/productos/" + f.id, cuerpoProducto(DB.producto(f.id), datos));
+      }
+      await DB.cargarTienda();
+      return "";
+    } catch (err) {
+      return textoError(err);
     }
-    DB.guardarProductos(todos);
-    DB.guardarStock(id, stock);
-    return "";
   }
-  function borrar(p) {
-    DB.guardarProductos(DB.productos().filter((x) => x.id !== p.id));
-    DB.guardar("carrito", DB.carrito().filter((i) => i.id !== p.id));
-    return { texto: "Producto eliminado." };
+  async function borrar(p) {
+    try {
+      await api("DELETE", "/api/productos/" + p.id);
+      DB.guardarCarrito(DB.carrito().filter((i) => i.id !== p.id));
+      await DB.cargarTienda();
+      return { texto: "Producto eliminado." };
+    } catch (err) {
+      return { texto: textoError(err), malo: true };
+    }
   }
   return /* @__PURE__ */ React.createElement(
     ListaCrud,
@@ -672,23 +789,28 @@ function AdminProductos() {
 function AdminCategorias() {
   const refrescar = useRefrescar();
   const lista = DB.categorias().map((c) => ({ ...c, usados: DB.productos().filter((p) => p.categoria === c.nombre).length }));
-  function guardar(f, esNuevo) {
+  async function guardar(f, esNuevo) {
     const nombre = f.nombre.trim(), todas = DB.categorias();
     if (nombre.length < 3) return "El nombre debe tener al menos 3 letras.";
     if (todas.some((c) => c.nombre.toLowerCase() === nombre.toLowerCase() && c.id !== f.id)) return "Esa categor\xEDa ya existe.";
-    if (esNuevo) {
-      DB.guardarCategorias(todas.concat({ id: DB.siguienteId(todas), nombre }));
-    } else {
-      const vieja = todas.find((c) => c.id === f.id).nombre;
-      DB.guardarProductos(DB.productos().map((p) => p.categoria === vieja ? { ...p, categoria: nombre } : p));
-      DB.guardarCategorias(todas.map((c) => c.id === f.id ? { ...c, nombre } : c));
+    try {
+      if (esNuevo) await api("POST", "/api/categorias", { nombre });
+      else await api("PUT", "/api/categorias/" + f.id, { nombre });
+      await DB.cargarTienda();
+      return "";
+    } catch (err) {
+      return textoError(err);
     }
-    return "";
   }
-  function borrar(c) {
+  async function borrar(c) {
     if (c.usados > 0) return { texto: 'No se puede eliminar "' + c.nombre + '": la usan ' + c.usados + " producto(s).", malo: true };
-    DB.guardarCategorias(DB.categorias().filter((x) => x.id !== c.id));
-    return { texto: "Categor\xEDa eliminada." };
+    try {
+      await api("DELETE", "/api/categorias/" + c.id);
+      await DB.cargarTienda();
+      return { texto: "Categor\xEDa eliminada." };
+    } catch (err) {
+      return { texto: textoError(err), malo: true };
+    }
   }
   return /* @__PURE__ */ React.createElement(
     ListaCrud,
@@ -708,24 +830,30 @@ function AdminCategorias() {
 function AdminUsuarios({ usuario }) {
   const refrescar = useRefrescar();
   const lista = DB.usuarios().map((u) => ({ ...u, clave: "" }));
-  function guardar(f, esNuevo) {
-    const msg = DB.validarUsuario(f.nombre, f.email, esNuevo ? 0 : f.id);
+  async function guardar(f, esNuevo) {
+    const msg = validarUsuario(f.nombre, f.email, esNuevo ? 0 : f.id);
     if (msg) return msg;
     if (esNuevo && f.clave.length < 4) return "La contrase\xF1a debe tener al menos 4 caracteres.";
     if (!esNuevo && f.clave !== "" && f.clave.length < 4) return "La contrase\xF1a debe tener al menos 4 caracteres.";
-    const todos = DB.usuarios();
-    if (esNuevo) {
-      todos.push({ id: DB.siguienteId(todos), nombre: f.nombre.trim(), email: f.email.trim(), clave: f.clave, telefono: "", rol: f.rol });
-      DB.guardarUsuarios(todos);
-    } else {
-      DB.guardarUsuarios(todos.map((u) => u.id === f.id ? { ...u, nombre: f.nombre.trim(), email: f.email.trim(), rol: f.rol, clave: f.clave === "" ? u.clave : f.clave } : u));
+    const cuerpo = { nombre: f.nombre.trim(), email: f.email.trim(), rol: f.rol, clave: f.clave, telefono: f.telefono || "", region: f.region || "", comuna: f.comuna || "" };
+    try {
+      if (esNuevo) await api("POST", "/api/usuarios", cuerpo);
+      else await api("PUT", "/api/usuarios/" + f.id, cuerpo);
+      await DB.cargarAdmin();
+      return "";
+    } catch (err) {
+      return textoError(err);
     }
-    return "";
   }
-  function borrar(u) {
+  async function borrar(u) {
     if (u.id === usuario.id) return { texto: "No puedes eliminar tu propio usuario.", malo: true };
-    DB.guardarUsuarios(DB.usuarios().filter((x) => x.id !== u.id));
-    return { texto: "Usuario eliminado." };
+    try {
+      await api("DELETE", "/api/usuarios/" + u.id);
+      await DB.cargarAdmin();
+      return { texto: "Usuario eliminado." };
+    } catch (err) {
+      return { texto: textoError(err), malo: true };
+    }
   }
   return /* @__PURE__ */ React.createElement(
     ListaCrud,
@@ -750,68 +878,110 @@ function AdminReportes() {
     vendidos[i.nombre] = (vendidos[i.nombre] || 0) + i.cantidad;
   }));
   const mejor = Object.entries(vendidos).sort((a, b) => b[1] - a[1])[0];
-  const bajos = DB.productos().filter((p) => DB.stockDe(p.id) <= 5);
+  const bajos = DB.productos().filter((p) => p.stock <= 5);
   const mensajes = DB.mensajes().slice().sort((a, b) => b.id - a.id);
-  function marcarLeido(id) {
-    DB.guardarMensajes(DB.mensajes().map((m) => m.id === id ? { ...m, leido: true } : m));
+  async function marcarLeido(id) {
+    try {
+      await api("PUT", "/api/mensajes/" + id + "/leido", { leido: true });
+      await DB.cargarAdmin();
+    } catch (err) {
+      setAviso({ texto: textoError(err), malo: true });
+    }
     refrescar();
   }
-  function eliminar(id) {
+  async function eliminar(id) {
     if (!window.confirm("\xBFSeguro que quieres eliminarlo?")) return;
-    DB.guardarMensajes(DB.mensajes().filter((m) => m.id !== id));
-    setAviso({ texto: "Mensaje eliminado." });
+    try {
+      await api("DELETE", "/api/mensajes/" + id);
+      await DB.cargarAdmin();
+      setAviso({ texto: "Mensaje eliminado." });
+    } catch (err) {
+      setAviso({ texto: textoError(err), malo: true });
+    }
     refrescar();
   }
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "kpis" }, /* @__PURE__ */ React.createElement(Kpi, { titulo: "M\xE1s vendido", valor: mejor ? mejor[0] + " (" + mejor[1] + ")" : "\u2014" }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "Stock bajo", valor: bajos.length ? bajos.map((p) => p.nombre + ": " + DB.stockDe(p.id)).join(" \xB7 ") : "Todo bien", alerta: bajos.length > 0 })), /* @__PURE__ */ React.createElement("h2", null, "Mensajes de clientes (", mensajes.length, ")"), /* @__PURE__ */ React.createElement(Aviso, { aviso }), mensajes.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "vacio" }, "Nadie ha dejado mensajes todav\xEDa."), mensajes.map((m) => /* @__PURE__ */ React.createElement("div", { key: m.id, className: "caja mensaje" }, /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, m.nombre), " \xB7 ", m.email, " \xB7 ", m.fecha, " ", !m.leido && /* @__PURE__ */ React.createElement("span", { className: "chip estado-Pendiente" }, "Nuevo")), /* @__PURE__ */ React.createElement("p", null, m.texto), /* @__PURE__ */ React.createElement("div", { className: "fila-botones" }, !m.leido && /* @__PURE__ */ React.createElement("button", { className: "sec chico", onClick: () => marcarLeido(m.id) }, "Marcar como le\xEDdo"), /* @__PURE__ */ React.createElement("button", { className: "peligro chico", onClick: () => eliminar(m.id) }, "Eliminar")))));
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "kpis" }, /* @__PURE__ */ React.createElement(Kpi, { titulo: "M\xE1s vendido", valor: mejor ? mejor[0] + " (" + mejor[1] + ")" : "\u2014" }), /* @__PURE__ */ React.createElement(Kpi, { titulo: "Stock bajo", valor: bajos.length ? bajos.map((p) => p.nombre + ": " + p.stock).join(" \xB7 ") : "Todo bien", alerta: bajos.length > 0 })), /* @__PURE__ */ React.createElement("h2", null, "Mensajes de clientes (", mensajes.length, ")"), /* @__PURE__ */ React.createElement(Aviso, { aviso }), mensajes.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "vacio" }, "Nadie ha dejado mensajes todav\xEDa."), mensajes.map((m) => /* @__PURE__ */ React.createElement("div", { key: m.id, className: "caja mensaje" }, /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, m.nombre), " \xB7 ", m.email, " \xB7 ", m.fecha, " ", !m.leido && /* @__PURE__ */ React.createElement("span", { className: "chip estado-Pendiente" }, "Nuevo")), /* @__PURE__ */ React.createElement("p", null, m.texto), /* @__PURE__ */ React.createElement("div", { className: "fila-botones" }, !m.leido && /* @__PURE__ */ React.createElement("button", { className: "sec chico", onClick: () => marcarLeido(m.id) }, "Marcar como le\xEDdo"), /* @__PURE__ */ React.createElement("button", { className: "peligro chico", onClick: () => eliminar(m.id) }, "Eliminar")))));
 }
 function AdminPerfil({ usuario, onUsuarioCambio }) {
   const [form, setForm] = React.useState({ nombre: usuario.nombre, email: usuario.email, telefono: usuario.telefono || "", clave: "" });
   const [error, setError] = React.useState("");
   const [aviso, setAviso] = React.useState(null);
-  function guardar(e) {
+  async function guardar(e) {
     e.preventDefault();
-    let msg = DB.validarUsuario(form.nombre, form.email, usuario.id);
+    let msg = validarUsuario(form.nombre, form.email, usuario.id);
     if (!msg && form.clave !== "" && form.clave.length < 4) msg = "La contrase\xF1a debe tener al menos 4 caracteres.";
     if (msg) {
       setError(msg);
       setAviso(null);
       return;
     }
-    DB.guardarUsuarios(DB.usuarios().map((u) => u.id === usuario.id ? { ...u, nombre: form.nombre.trim(), email: form.email.trim(), telefono: form.telefono.trim(), clave: form.clave === "" ? u.clave : form.clave } : u));
-    setError("");
-    setAviso({ texto: "Perfil actualizado." });
-    onUsuarioCambio();
+    try {
+      const actualizado = await Auth.actualizarPerfil({ nombre: form.nombre.trim(), email: form.email.trim(), telefono: form.telefono.trim(), clave: form.clave });
+      setError("");
+      setForm({ ...form, clave: "" });
+      setAviso({ texto: "Perfil actualizado." });
+      onUsuarioCambio(actualizado);
+    } catch (err) {
+      setError(textoError(err));
+      setAviso(null);
+    }
   }
   return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(Aviso, { aviso }), /* @__PURE__ */ React.createElement("form", { className: "caja", onSubmit: guardar, noValidate: true }, /* @__PURE__ */ React.createElement("div", { className: "campos" }, /* @__PURE__ */ React.createElement(Campo, { etiqueta: "Nombre", valor: form.nombre, onCambio: (v) => setForm({ ...form, nombre: v }) }), /* @__PURE__ */ React.createElement(Campo, { etiqueta: "Correo", valor: form.email, onCambio: (v) => setForm({ ...form, email: v }) }), /* @__PURE__ */ React.createElement(Campo, { etiqueta: "Tel\xE9fono", valor: form.telefono, onCambio: (v) => setForm({ ...form, telefono: v }) }), /* @__PURE__ */ React.createElement(Campo, { etiqueta: "Nueva contrase\xF1a (vac\xEDa = no cambiarla)", tipo: "password", valor: form.clave, onCambio: (v) => setForm({ ...form, clave: v }) })), /* @__PURE__ */ React.createElement("p", { className: "error-form" }, error), /* @__PURE__ */ React.createElement("button", { type: "submit" }, "Guardar cambios")));
 }
 // ---- js/App.js
-function AccesoDenegado() {
-  return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("div", { className: "resultado fallo" }, /* @__PURE__ */ React.createElement("h2", null, "Zona solo para administradores"), /* @__PURE__ */ React.createElement("p", null, "Inicia sesi\xF3n con una cuenta de administrador para entrar al panel."), /* @__PURE__ */ React.createElement("a", { href: "#/login", className: "btn-comprar" }, "Iniciar sesi\xF3n")));
-}
 function App() {
   const [ruta, setRuta] = React.useState(window.location.hash || "#/");
   const [carrito, setCarrito] = React.useState(() => DB.carrito());
-  const [usuario, setUsuario] = React.useState(() => DB.usuarioActual());
+  const [usuario, setUsuario] = React.useState(null);
   const [resultado, setResultado] = React.useState(null);
+  const [carga, setCarga] = React.useState({ listo: false, error: "" });
+  const [, setVersion] = React.useState(0);
+  function iniciar() {
+    setCarga({ listo: false, error: "" });
+    Auth.restaurar().then((u) => {
+      setUsuario(u);
+      return DB.cargarTienda();
+    }).then(() => {
+      DB.limpiarCarrito();
+      setCarrito(DB.carrito());
+      setCarga({ listo: true, error: "" });
+    }).catch((err) => setCarga({ listo: false, error: err.message }));
+  }
+  React.useEffect(iniciar, []);
   React.useEffect(() => {
     function alCambiarHash() {
       setRuta(window.location.hash || "#/");
       setCarrito(DB.carrito());
-      setUsuario(DB.usuarioActual());
       window.scrollTo(0, 0);
+      DB.cargarTienda().then(() => setVersion((v) => v + 1)).catch(() => {
+      });
+    }
+    function alExpirar() {
+      setUsuario(null);
+      sessionStorage.setItem("veg_aviso", "Tu sesi\xF3n expir\xF3. Inicia sesi\xF3n nuevamente.");
+      irA("#/login");
     }
     window.addEventListener("hashchange", alCambiarHash);
-    return () => window.removeEventListener("hashchange", alCambiarHash);
+    window.addEventListener("veg-sesion-expirada", alExpirar);
+    return () => {
+      window.removeEventListener("hashchange", alCambiarHash);
+      window.removeEventListener("veg-sesion-expirada", alExpirar);
+    };
   }, []);
   function actualizarCarrito() {
     setCarrito(DB.carrito());
   }
   function entrar(u) {
     setUsuario(u);
-    irA(u.rol === "admin" ? "#/admin" : "#/");
+    const volver = sessionStorage.getItem("veg_volver");
+    sessionStorage.removeItem("veg_volver");
+    const valido = volver && !volver.startsWith("#/compra-") && !(volver.startsWith("#/admin") && u.rol !== "admin");
+    irA(valido ? volver : u.rol === "admin" ? "#/admin" : "#/");
   }
   function salir() {
-    DB.cerrarSesion();
+    sessionStorage.removeItem("veg_volver");
+    Auth.salir();
+    setRuta("#/");
     setUsuario(null);
     irA("#/");
   }
@@ -820,10 +990,22 @@ function App() {
     setCarrito(DB.carrito());
     irA(r.exito ? "#/compra-exitosa" : "#/compra-error");
   }
+  if (!carga.listo) {
+    return /* @__PURE__ */ React.createElement("div", { className: "contenedor", style: { textAlign: "center", marginTop: "4rem" } }, carga.error ? /* @__PURE__ */ React.createElement("div", { className: "resultado fallo" }, /* @__PURE__ */ React.createElement("h2", null, "No se pudo cargar la tienda"), /* @__PURE__ */ React.createElement("p", null, carga.error), /* @__PURE__ */ React.createElement("button", { className: "btn-comprar", onClick: iniciar }, "Reintentar")) : /* @__PURE__ */ React.createElement("p", null, "Conectando con el servidor\u2026"));
+  }
   const partes = ruta.replace("#/", "").split("/").filter(Boolean);
-  const esAdmin = usuario !== null && usuario.rol === "admin";
-  if (partes[0] === "admin" && esAdmin) {
-    return /* @__PURE__ */ React.createElement(Admin, { seccion: partes[1] || "dashboard", usuario, onSalir: salir, onUsuarioCambio: () => setUsuario(DB.usuarioActual()) });
+  function guardia(rol, pantalla) {
+    if (!usuario) {
+      sessionStorage.setItem("veg_volver", ruta);
+      sessionStorage.setItem("veg_aviso", "Inicia sesi\xF3n para continuar.");
+      window.setTimeout(() => irA("#/login"), 0);
+      return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("p", null, "Redirigiendo al inicio de sesi\xF3n\u2026"));
+    }
+    if (rol && usuario.rol !== rol) return /* @__PURE__ */ React.createElement(AccesoRestringido, { usuario });
+    return pantalla;
+  }
+  if (partes[0] === "admin") {
+    return guardia("admin", /* @__PURE__ */ React.createElement(Admin, { seccion: partes[1] || "dashboard", usuario, onSalir: salir, onUsuarioCambio: (u) => setUsuario(u) }));
   }
   function pagina() {
     if (partes.length === 0) return /* @__PURE__ */ React.createElement(Home, null);
@@ -835,11 +1017,13 @@ function App() {
       case "carrito":
         return /* @__PURE__ */ React.createElement(Carrito, { carrito, onCambio: actualizarCarrito });
       case "checkout":
-        return /* @__PURE__ */ React.createElement(Checkout, { carrito, usuario, onResultado: terminarPago });
+        return guardia(null, /* @__PURE__ */ React.createElement(Checkout, { carrito, usuario, onResultado: terminarPago }));
       case "compra-exitosa":
-        return /* @__PURE__ */ React.createElement(ResultadoCompra, { resultado, exito: true });
+        return guardia(null, /* @__PURE__ */ React.createElement(ResultadoCompra, { resultado, exito: true }));
       case "compra-error":
-        return /* @__PURE__ */ React.createElement(ResultadoCompra, { resultado, exito: false });
+        return guardia(null, /* @__PURE__ */ React.createElement(ResultadoCompra, { resultado, exito: false }));
+      case "mis-compras":
+        return guardia(null, /* @__PURE__ */ React.createElement(MisCompras, null));
       case "blogs":
         return partes[1] ? /* @__PURE__ */ React.createElement(DetalleBlog, { id: partes[1] }) : /* @__PURE__ */ React.createElement(Blogs, null);
       case "nosotros":
@@ -850,8 +1034,6 @@ function App() {
         return /* @__PURE__ */ React.createElement(Login, { onLogin: entrar });
       case "registro":
         return /* @__PURE__ */ React.createElement(Registro, { onLogin: entrar });
-      case "admin":
-        return /* @__PURE__ */ React.createElement(AccesoDenegado, null);
       default:
         return /* @__PURE__ */ React.createElement("div", { className: "contenedor" }, /* @__PURE__ */ React.createElement("p", null, "P\xE1gina no encontrada. ", /* @__PURE__ */ React.createElement("a", { href: "#/" }, "Volver al inicio")));
     }

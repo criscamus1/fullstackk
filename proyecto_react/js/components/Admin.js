@@ -1,9 +1,4 @@
-// ============================================================
-// Admin.js — el panel de administrador: el marco (menú lateral) y las piezas que
-// comparten sus secciones. Las secciones están en AdminSecciones.js.
-// Solo entra quien inició sesión con rol "admin" (App lo comprueba).
-// ============================================================
-
+// Solo entra quien inició sesión con rol "admin" (App lo comprueba, y el backend lo vuelve a comprobar con el JWT)
 const SECCIONES_ADMIN = [
   ["dashboard", "📊 Dashboard"], ["ordenes", "🧾 Órdenes"], ["productos", "🎮 Productos"],
   ["categorias", "🏷️ Categorías"], ["usuarios", "👥 Usuarios"], ["reportes", "📈 Reportes"], ["perfil", "👤 Perfil"]
@@ -11,8 +6,17 @@ const SECCIONES_ADMIN = [
 
 // Props: seccion (viene de la URL: #/admin/productos), usuario, onSalir y onUsuarioCambio
 function Admin({ seccion, usuario, onSalir, onUsuarioCambio }) {
+  // Al entrar al panel se piden al backend las órdenes, usuarios y mensajes (solo responde si el token es de un ADMIN)
+  const [carga, setCarga] = React.useState({ listo: false, error: "" });
+  React.useEffect(() => {
+    Promise.all([DB.cargarAdmin(), DB.cargarTienda()])
+      .then(() => setCarga({ listo: true, error: "" }))
+      .catch((err) => setCarga({ listo: false, error: err.message }));
+  }, []);
+
   let contenido;
-  if (seccion === "ordenes") contenido = <AdminOrdenes />;
+  if (!carga.listo) contenido = carga.error ? <p className="error-form">{carga.error}</p> : <p className="vacio">Cargando datos…</p>;
+  else if (seccion === "ordenes") contenido = <AdminOrdenes />;
   else if (seccion === "productos") contenido = <AdminProductos />;
   else if (seccion === "categorias") contenido = <AdminCategorias />;
   else if (seccion === "usuarios") contenido = <AdminUsuarios usuario={usuario} />;
@@ -45,8 +49,6 @@ function Admin({ seccion, usuario, onSalir, onUsuarioCambio }) {
 }
 
 // ---------- Piezas compartidas ----------
-
-// Truco para volver a dibujar una sección después de cambiar localStorage: cambia un número de estado
 function useRefrescar() {
   const [, setN] = React.useState(0);
   return function () { setN((n) => n + 1); };
@@ -92,17 +94,17 @@ function ListaCrud({ nombre, cabeceras, lista, fila, vacio, campos, guardar, bor
   function abrir(datos) { setForm(datos); setError(""); setAviso(null); }
   function cambiar(campo, valor) { setForm({ ...form, [campo]: valor }); }
 
-  function enviar(e) {
+  async function enviar(e) {
     e.preventDefault();
-    const msg = guardar(form, !!form._nuevo);
+    const msg = await guardar(form, !!form._nuevo);   // guardar() habla con el backend y devuelve un texto de error, o "" si salió bien
     if (msg) { setError(msg); return; }   // el formulario queda abierto con lo escrito
     setForm(null);
     setAviso({ texto: "Guardado correctamente." });
     alCambiar();
   }
-  function eliminar(item) {
+  async function eliminar(item) {
     if (!window.confirm("¿Seguro que quieres eliminarlo?")) return;
-    setAviso(borrar(item));
+    setAviso(await borrar(item));
     alCambiar();
   }
 

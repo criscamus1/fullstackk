@@ -1,122 +1,86 @@
-// ============================================================
-// db.js — todo lo que lee y guarda en localStorage (JavaScript normal, sin JSX).
-// No hay servidor: el "backend" es el navegador. Los componentes React llaman a
-// estas funciones (DB.algo) y después actualizan su estado para volver a dibujarse.
-// ============================================================
 
 const DB = {
-  // ---------- Básicas ----------
-  leer(clave, porDefecto) {
-    try {
-      const valor = JSON.parse(localStorage.getItem(clave));
-      return valor === null ? porDefecto : valor;
-    } catch (e) {
-      return porDefecto;
-    }
+  cache: { productos: [], categorias: [], ordenes: [], usuarios: [], mensajes: [], misOrdenes: [] },
+
+  // ---------- Carga desde el backend ----------
+  async cargarTienda() {
+    const [productos, categorias] = await Promise.all([api("GET", "/api/productos", undefined, true), api("GET", "/api/categorias", undefined, true)]);
+    DB.cache.productos = productos;
+    DB.cache.categorias = categorias;
   },
-  guardar(clave, valor) {
-    localStorage.setItem(clave, JSON.stringify(valor));
+  async cargarAdmin() {
+    const [ordenes, usuarios, mensajes] = await Promise.all([api("GET", "/api/ordenes"), api("GET", "/api/usuarios"), api("GET", "/api/mensajes")]);
+    DB.cache.ordenes = ordenes.map(DB.normalizarOrden);
+    DB.cache.usuarios = usuarios;
+    DB.cache.mensajes = mensajes;
   },
-  siguienteId(lista) {
-    return Math.max(0, ...lista.map((x) => x.id)) + 1;
+  async cargarMisOrdenes() {
+    DB.cache.misOrdenes = (await api("GET", "/api/ordenes/mis")).map(DB.normalizarOrden);
   },
-  restaurar() {   // vuelve a los datos de ejemplo (borra lo guardado en el navegador)
-    ["productos", "stock", "carrito", "categorias", "usuarios", "ordenes", "mensajes", "sesion"].forEach((c) => localStorage.removeItem(c));
+  // El backend manda "PENDIENTE" y productoId; la interfaz usa "Pendiente" e id.
+  normalizarOrden(o) {
+    return { ...o, estado: o.estado.charAt(0) + o.estado.slice(1).toLowerCase(), items: o.items.map((i) => ({ ...i, id: i.productoId })) };
   },
 
-  // ---------- Productos y stock ----------
-  productos() { return DB.leer("productos", productosData); },
-  guardarProductos(lista) { DB.guardar("productos", lista); },
-  producto(id) { return DB.productos().find((p) => p.id == id); },
-  stockDe(id) {
-    const p = DB.producto(id);
-    return DB.leer("stock", {})[id] ?? (p ? p.stock : 0);
-  },
-  guardarStock(id, unidades) {
-    const stocks = DB.leer("stock", {});
-    stocks[id] = unidades;
-    DB.guardar("stock", stocks);
-  },
+  // ---------- Lecturas (desde la copia en memoria) ----------
+  productos() { return DB.cache.productos; },
+  producto(id) { return DB.cache.productos.find((p) => p.id == id); },
+  categorias() { return DB.cache.categorias; },
+  ordenes() { return DB.cache.ordenes; },
+  misOrdenes() { return DB.cache.misOrdenes; },
+  usuarios() { return DB.cache.usuarios; },
+  mensajes() { return DB.cache.mensajes; },
+  usuarioActual() { return Auth.usuario; },
+
+  emailValido(email) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email); },
   precioFinal(p) {   // precio con el descuento de la oferta
     return Math.round((p.precio * (100 - (p.descuento || 0))) / 100);
   },
+  totalOrden(o) { return o.items.reduce((s, i) => s + i.precio * i.cantidad, 0); },
 
-  // ---------- Carrito: [{ id, cantidad }] ----------
-  carrito() { return DB.leer("carrito", []); },
-  // delta = +1 agrega (descuenta stock), -1 quita (devuelve stock). Devuelve false si no hay stock.
+  // ---------- Stock ----------
+  stockReal(id) { const p = DB.producto(id); return p ? p.stock : 0; },   // el que hay en la base de datos
+  stockDe(id) {                                                            // lo que todavía se puede agregar al carrito
+    const item = DB.carrito().find((i) => i.id == id);
+    return DB.stockReal(id) - (item ? item.cantidad : 0);
+  },
+
+  // ---------- Carrito: [{ id, cantidad }] en localStorage ----------
+  carrito() {
+    try { return JSON.parse(localStorage.getItem("carrito")) || []; } catch (e) { return []; }
+  },
+  guardarCarrito(lista) { localStorage.setItem("carrito", JSON.stringify(lista)); },
+  // delta = +1 agrega, -1 quita. Devuelve false si no queda stock disponible.
   cambiarCarrito(id, delta) {
     id = Number(id);
     if (delta > DB.stockDe(id)) return false;
     const carrito = DB.carrito();
     let item = carrito.find((i) => i.id === id);
     if (!item) { item = { id: id, cantidad: 0 }; carrito.push(item); }
-    delta = Math.max(delta, -item.cantidad);
-    item.cantidad += delta;
-    DB.guardarStock(id, DB.stockDe(id) - delta);
-    DB.guardar("carrito", carrito.filter((i) => i.cantidad > 0));
+    item.cantidad = Math.max(0, item.cantidad + delta);
+    DB.guardarCarrito(carrito.filter((i) => i.cantidad > 0));
     return true;
   },
-  vaciarCarrito() {
-    DB.carrito().forEach((i) => DB.cambiarCarrito(i.id, -i.cantidad));
+  vaciarCarrito() { DB.guardarCarrito([]); },
+  // Saca del carrito lo que ya no existe o supera el stock real (por si cambió desde la última visita)
+  limpiarCarrito() {
+    DB.guardarCarrito(DB.carrito().filter((i) => DB.producto(i.id)).map((i) => ({ ...i, cantidad: Math.min(i.cantidad, DB.stockReal(i.id)) })).filter((i) => i.cantidad > 0));
   },
-  totalCarrito() {
-    return DB.carrito().reduce((s, i) => s + DB.precioFinal(DB.producto(i.id)) * i.cantidad, 0);
-  },
-  cantidadCarrito() {
-    return DB.carrito().reduce((s, i) => s + i.cantidad, 0);
-  },
-
-  // ---------- Órdenes ----------
-  ordenes() { return DB.leer("ordenes", ordenesData); },
-  guardarOrdenes(lista) { DB.guardar("ordenes", lista); },
-  totalOrden(o) { return o.items.reduce((s, i) => s + i.precio * i.cantidad, 0); },
-  // Convierte el carrito en una orden y lo vacía (el stock ya estaba descontado)
-  crearOrden(cliente) {
-    const items = DB.carrito().map((i) => {
-      const p = DB.producto(i.id);
-      return { id: p.id, nombre: p.nombre, precio: DB.precioFinal(p), cantidad: i.cantidad };
+  totalCarrito() { return DB.carrito().reduce((s, i) => s + DB.precioFinal(DB.producto(i.id)) * i.cantidad, 0); },
+  cantidadCarrito() { return DB.carrito().reduce((s, i) => s + i.cantidad, 0); },
+  // El backend valida el stock, lo descuenta y calcula los precios. Si el pago es "rechazada" responde 402.
+  async crearOrden(f) {
+    const orden = await api("POST", "/api/ordenes", {
+      items: DB.carrito().map((i) => ({ productoId: i.id, cantidad: i.cantidad })),
+      nombre: f.nombre.trim(), apellidos: f.apellidos.trim(), correo: f.correo.trim(),
+      calle: f.calle.trim(), region: f.region, comuna: f.comuna, metodoPago: f.pago
     });
-    const orden = {
-      id: "TV-" + Math.floor(100000 + Math.random() * 900000),
-      fecha: new Date().toISOString().slice(0, 10),
-      cliente: cliente,
-      estado: "Pendiente",
-      items: items
-    };
-    DB.guardarOrdenes(DB.ordenes().concat(orden));
-    DB.guardar("carrito", []);
-    return orden;
+    DB.vaciarCarrito();
+    await DB.cargarTienda();   // el stock cambió
+    return DB.normalizarOrden(orden);
   },
 
-  // ---------- Categorías, mensajes ----------
-  categorias() { return DB.leer("categorias", categoriasData); },
-  guardarCategorias(lista) { DB.guardar("categorias", lista); },
-  mensajes() { return DB.leer("mensajes", mensajesData); },
-  guardarMensajes(lista) { DB.guardar("mensajes", lista); },
-
-  // ---------- Usuarios y sesión ----------
-  usuarios() { return DB.leer("usuarios", usuariosData); },
-  guardarUsuarios(lista) { DB.guardar("usuarios", lista); },
-  emailValido(email) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email); },
-  // Devuelve el texto del error, o "" si los datos están bien (idActual = el usuario que se edita, 0 si es nuevo)
-  validarUsuario(nombre, email, idActual) {
-    if (nombre.trim().length < 3) return "El nombre debe tener al menos 3 letras.";
-    if (!DB.emailValido(email.trim())) return "El correo no es válido.";
-    const repetido = DB.usuarios().some((u) => u.email.toLowerCase() === email.trim().toLowerCase() && u.id != idActual);
-    return repetido ? "Ese correo ya lo usa otro usuario." : "";
-  },
-  usuarioActual() {
-    const id = DB.leer("sesion", null);
-    return id === null ? null : DB.usuarios().find((u) => u.id === id) || null;
-  },
-  iniciarSesion(email, clave) {
-    const u = DB.usuarios().find((x) => x.email.toLowerCase() === email.trim().toLowerCase() && x.clave === clave);
-    if (u) DB.guardar("sesion", u.id);
-    return u || null;
-  },
-  cerrarSesion() { localStorage.removeItem("sesion"); },
-
-  // ---------- Regiones y comunas ----------
+  // ---------- Regiones y comunas (datos fijos de datos.js) ----------
   regiones() { return Object.keys(REGIONES); },
   comunas(region) { return REGIONES[region] || []; }
 };

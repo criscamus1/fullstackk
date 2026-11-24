@@ -32,7 +32,7 @@ function DetalleProducto({ id, onCambio }) {
     setReproduciendo(false);
   }
   function agregar() {
-    const ok = DB.cambiarCarrito(p.id, 1);   // descuenta 1 de stock
+    const ok = DB.cambiarCarrito(p.id, 1);   // agrega 1 al carrito (si queda stock disponible)
     setMensaje({ texto: ok ? p.nombre + " se agregó al carrito." : "No hay stock suficiente.", ok: ok });
     onCambio();
   }

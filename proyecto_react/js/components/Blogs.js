@@ -1,7 +1,3 @@
-// ============================================================
-// Blogs.js — lista de noticias y la página de una noticia (#/blogs/2).
-// Los datos están en datos.js (blogsData).
-// ============================================================
 
 function Blogs() {
   return (

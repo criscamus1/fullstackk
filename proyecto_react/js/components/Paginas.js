@@ -39,7 +39,7 @@ function Contacto({ usuario }) {
   const [form, setForm] = React.useState({ nombre: usuario ? usuario.nombre : "", correo: usuario ? usuario.email : "", texto: "" });
   const [aviso, setAviso] = React.useState(null);   // { texto, ok }
 
-  function enviar(e) {
+  async function enviar(e) {
     e.preventDefault();
     let error = "";
     if (form.nombre.trim().length < 3) error = "El nombre debe tener al menos 3 letras.";
@@ -49,11 +49,13 @@ function Contacto({ usuario }) {
       setAviso({ texto: error, ok: false });
       return;
     }
-    const mensajes = DB.mensajes();
-    mensajes.push({ id: DB.siguienteId(mensajes), fecha: new Date().toISOString().slice(0, 10), nombre: form.nombre.trim(), email: form.correo.trim(), texto: form.texto.trim(), leido: false });
-    DB.guardarMensajes(mensajes);
-    setForm({ ...form, texto: "" });
-    setAviso({ texto: "¡Mensaje enviado! Te responderemos pronto.", ok: true });
+    try {
+      await api("POST", "/api/mensajes", { nombre: form.nombre.trim(), email: form.correo.trim(), texto: form.texto.trim() }, true);
+      setForm({ ...form, texto: "" });
+      setAviso({ texto: "¡Mensaje enviado! Te responderemos pronto.", ok: true });
+    } catch (err) {
+      setAviso({ texto: err.message, ok: false });
+    }
   }
 
   return (
